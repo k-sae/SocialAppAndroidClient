@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Socializer</string>
+    <string name="action_settings">Settings</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+</resources>
