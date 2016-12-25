@@ -1,0 +1,42 @@
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              tools:context="com.example.kemo.socializer.View.ContentFragment" android:weightSum="1"
+              android:baselineAligned="false" android:orientation="vertical">
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal"
+              android:baselineAligned="false">
+    <SearchView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/searchView" android:layout_weight="0.78"/>
+</LinearLayout>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:weightSum="1" android:orientation="horizontal">
+
+        <ImageView
+                android:layout_width="0dp"
+                android:layout_height="62dp"
+                android:src="@drawable/ic_messages"
+                android:id="@+id/imageView" android:layout_weight="0.25"/>
+        <ImageView
+                style="@style/ImageButtons"
+                android:layout_width="0dp"
+                android:layout_height="62dp"
+                android:src="@drawable/ic_friends"
+                android:id="@+id/imageView1" android:layout_weight="0.25"/>
+        <ImageView
+                style="@style/ImageButtons"
+                android:layout_width="0dp"
+                android:layout_height="62dp"
+                android:src="@drawable/ic_notifications"
+                android:id="@+id/imageView2" android:layout_weight="0.25"/>
+        <ImageView
+                style="@style/ImageButtons"
+                android:layout_width="0dp"
+                android:layout_height="62dp"
+                android:src="@drawable/ic_messages"
+                android:id="@+id/imageView3" android:layout_weight="0.25"/>
+    </LinearLayout>
+</LinearLayout>

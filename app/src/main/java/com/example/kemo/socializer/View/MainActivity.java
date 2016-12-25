@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements CallBack {
                 }
             }
         }).start();
-        navigate(new RegisterFragment(), null);
+        navigate(new RegisterFragment());
     }
 
     @Override
@@ -53,10 +53,16 @@ public class MainActivity extends AppCompatActivity implements CallBack {
     }
 
     @Override
-    public void navigate(Fragment fragment, Object extra) {
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.main_container,
-                        fragment)
-                .commit();
+    public void navigate(final Fragment fragment) {
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.main_container,
+                                fragment)
+                        .commit();
+            }
+        });
+
     }
 }

@@ -8,7 +8,8 @@ import com.example.kemo.socializer.SocialAppGeneral.LoginInfo;
  * Created by kemo on 24/12/2016.
  */
 public class ClientLoggedUser {
-    public abstract class Login
+    public static String id;
+    public static abstract class Login
     {
         public Login(LoginInfo loginInfo)
         {

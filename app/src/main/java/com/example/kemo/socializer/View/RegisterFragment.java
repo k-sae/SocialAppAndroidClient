@@ -2,12 +2,12 @@ package com.example.kemo.socializer.View;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 import com.example.kemo.socializer.Control.ClientLoggedUser;
 import com.example.kemo.socializer.R;
 import com.example.kemo.socializer.SocialAppGeneral.LoginInfo;
@@ -33,10 +33,18 @@ public class RegisterFragment extends Fragment {
                 LoginInfo loginInfo = new LoginInfo();
                 loginInfo.setEmail(emailTextEdit.getText().toString());
                 loginInfo.setPassword(passwordTextEdit.getText().toString());
-                new ClientLoggedUser().new Login(loginInfo) {
+                new ClientLoggedUser.Login(loginInfo) {
                     @Override
                     public void onFinish(String id) {
-                        Log.w("result", id);
+                        if (!id.equals( "-1"))
+                        {
+                            ClientLoggedUser.id = id;
+                            ((CallBack)getActivity()).navigate(new ContentFragment());
+                        }
+                        else
+                        {
+                            Toast.makeText(RegisterFragment.this.getActivity(), "wrong mail or password", Toast.LENGTH_LONG).show();
+                        }
                     }
                 };
             }
