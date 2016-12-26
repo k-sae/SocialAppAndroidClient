@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements CallBack {
 
     @Override
     public void navigate(final Fragment fragment) {
-        this.runOnUiThread(new Runnable() {
+        runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 getSupportFragmentManager().beginTransaction()

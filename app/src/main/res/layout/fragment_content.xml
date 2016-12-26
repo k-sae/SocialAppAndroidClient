@@ -16,27 +16,21 @@
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:weightSum="1" android:orientation="horizontal">
 
         <ImageView
-                android:layout_width="0dp"
-                android:layout_height="62dp"
+                style="@style/ImageButtons"
                 android:src="@drawable/ic_messages"
-                android:id="@+id/imageView" android:layout_weight="0.25"/>
+                android:id="@+id/home_frag" android:layout_weight="0.25" android:contentDescription="@string/home_page"/>
         <ImageView
                 style="@style/ImageButtons"
-                android:layout_width="0dp"
-                android:layout_height="62dp"
                 android:src="@drawable/ic_friends"
-                android:id="@+id/imageView1" android:layout_weight="0.25"/>
+                android:id="@+id/friends_frag" android:layout_weight="0.25" android:contentDescription="@string/friends"/>
         <ImageView
                 style="@style/ImageButtons"
-                android:layout_width="0dp"
-                android:layout_height="62dp"
                 android:src="@drawable/ic_notifications"
-                android:id="@+id/imageView2" android:layout_weight="0.25"/>
+                android:id="@+id/notification_frag" android:layout_weight="0.25" android:contentDescription="@string/notifications"/>
         <ImageView
                 style="@style/ImageButtons"
-                android:layout_width="0dp"
-                android:layout_height="62dp"
                 android:src="@drawable/ic_messages"
-                android:id="@+id/imageView3" android:layout_weight="0.25"/>
+                android:id="@+id/profilePage" android:layout_weight="0.25" android:contentDescription="@string/profile"/>
     </LinearLayout>
+    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent" android:id="@+id/sub_container"/>
 </LinearLayout>

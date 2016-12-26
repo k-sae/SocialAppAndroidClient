@@ -33,7 +33,7 @@ public abstract class ServerConnection implements Connection{
         if (sPort == ePort) return ;
         try {
             connectionSocket = new Socket();
-            connectionSocket.connect(new InetSocketAddress(serverName,sPort), 500);
+            connectionSocket.connect(new InetSocketAddress(serverName,sPort), 1500);
             //verify if the socket found is the desired socket
             verifyConnection();
             port = sPort;

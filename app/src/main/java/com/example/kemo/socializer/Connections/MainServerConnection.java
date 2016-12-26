@@ -29,7 +29,7 @@ public class MainServerConnection {
     //after creating users levels accept user of type registeredUser or login user
     private void startConnection() throws Exception {
         //here i will check for user info and choose whether to continue the connection or to end it
-        new ServerConnection("192.168.0.195",6000) {
+        new ServerConnection("192.168.43.195",6000) {
             @Override
             public void startConnection() {
                 mainConnectionSocket = connectionSocket;
