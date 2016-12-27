@@ -42,8 +42,12 @@ public class RegisterFragment extends Fragment {
                             ((CallBack)getActivity()).navigate(new ContentFragment());
                         }
                         else
-                        {
-                            Toast.makeText(RegisterFragment.this.getActivity(), "wrong mail or password", Toast.LENGTH_LONG).show();
+                        { getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(RegisterFragment.this.getActivity(), "wrong mail or password", Toast.LENGTH_LONG).show();
+                            }
+                        });
                         }
                     }
                 };

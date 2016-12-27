@@ -1,6 +1,7 @@
 package com.example.kemo.socializer.View;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +12,16 @@ import com.example.kemo.socializer.R;
  * A placeholder fragment containing a simple view.
  */
 public class ContentFragment extends Fragment implements CallBack {
+    private HomeFragment homeFragment;
+    private FriendsFragment friendsFragment;
     public ContentFragment() {
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        homeFragment = new HomeFragment();
+        friendsFragment = new FriendsFragment();
     }
 
     @Override
@@ -21,13 +31,13 @@ public class ContentFragment extends Fragment implements CallBack {
         view.findViewById(R.id.home_frag).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                navigate(new HomeFragment());
+                navigate(homeFragment);
             }
         });
         view.findViewById(R.id.friends_frag).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                navigate(new FriendsFragment());
+                navigate(friendsFragment);
             }
         });
         return view;
