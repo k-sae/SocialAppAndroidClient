@@ -30,16 +30,12 @@ public class RegisterInfo implements Shareable {
 
 
     public static RegisterInfo fromJsonString(String jsonStr) {
-        //TODO #prototype GSON
-        //Read from JSON
         Gson gson = new Gson();
         return  gson.fromJson(jsonStr,RegisterInfo.class);
     }
 
     @Override
     public String convertToJsonString() {
-        //TODO #prototype GSON
-        //Write JSON
         Gson gson = new Gson();
         return gson.toJson(this);
     }

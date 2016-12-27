@@ -11,8 +11,6 @@ import com.google.gson.Gson;
  */
 public class LoginInfo implements Shareable {
     public static final String NEW_LOGIN ="new_login";
-    //TODO #prototype GSON
-    //just for prototype will be removed
     // using transient GSON will ignore this obj and wont put it in string
 
     private String email;
@@ -40,16 +38,14 @@ public class LoginInfo implements Shareable {
     }
 
     public static LoginInfo fromJsonString(String jsonStr) {
-        //TODO #prototype GSON
-        //Read from JSON
+
         Gson gson = new Gson();
         return  gson.fromJson(jsonStr, LoginInfo.class);
     }
 
     @Override
     public String convertToJsonString() {
-        //TODO #prototype GSON
-        //Write JSON
+
         Gson gson = new Gson();
         return gson.toJson(this);
     }

@@ -52,13 +52,11 @@ public class UserInfo implements Shareable {
     }
 
     public String convertToJsonString() {
-        //TODO #hazem
         Gson gson = new Gson();
         return gson.toJson(this);
     }
     public static UserInfo fromJsonString(String jsonStr) {
-        //TODO #prototype GSON
-        //Read from JSON
+
         Gson gson = new Gson();
         return  gson.fromJson(jsonStr,UserInfo.class);
     }

@@ -45,14 +45,10 @@ public abstract class CommandRequest {
             //notify for user dc
         }catch (SocketTimeoutException e)
         {
-            //TODO #kareem update:1
-            //remove it after debugging
             e.printStackTrace();
         }
         catch (IOException e)
         {
-            //TODO #lastly
-            //Export to Log
             System.out.println(e.getMessage());
         }
     }

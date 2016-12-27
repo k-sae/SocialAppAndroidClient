@@ -1,11 +1,13 @@
 package com.example.kemo.socializer.View;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import com.example.kemo.socializer.Control.ClientLoggedUser;
 import com.example.kemo.socializer.R;
@@ -35,6 +37,14 @@ public class FriendsFragment extends Fragment {
         ListView listView = (ListView) view.findViewById(R.id.friends_listView);
         //bind the list to the adapter
         listView.setAdapter(friendsAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getActivity(),ProfileActivity.class).putExtra(Intent.EXTRA_TEXT,
+                        friendsAdapter.getAppUsers().get(i).getID());
+                startActivity(intent);
+            }
+        });
         fetchData();
         return view;
     }

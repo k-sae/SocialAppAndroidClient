@@ -26,7 +26,6 @@ public abstract class ServerConnection implements Connection{
            findPort(startPort, startPort + 3);
        }
             startConnection();
-            //TODO #Exception
     }
     private void findPort(int sPort, int ePort)
     {
@@ -45,8 +44,6 @@ public abstract class ServerConnection implements Connection{
         }
         catch (Exception e)
         {
-            //TODO #Lastly
-            //export it to log file
             e.printStackTrace();
         }
     }
