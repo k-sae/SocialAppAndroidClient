@@ -9,7 +9,7 @@ import android.view.MenuItem;
 import com.example.kemo.socializer.Connections.MainServerConnection;
 import com.example.kemo.socializer.R;
 
-public class MainActivity extends AppCompatActivity implements CallBack {
+public class MainActivity extends AppCompatActivity implements FragmentNavigator {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

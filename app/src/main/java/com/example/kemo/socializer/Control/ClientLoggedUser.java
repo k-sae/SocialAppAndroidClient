@@ -1,10 +1,7 @@
 package com.example.kemo.socializer.Control;
 
 import com.example.kemo.socializer.Connections.MainServerConnection;
-import com.example.kemo.socializer.SocialAppGeneral.Command;
-import com.example.kemo.socializer.SocialAppGeneral.LoginInfo;
-import com.example.kemo.socializer.SocialAppGeneral.SocialArrayList;
-import com.example.kemo.socializer.SocialAppGeneral.UserInfo;
+import com.example.kemo.socializer.SocialAppGeneral.*;
 
 import java.util.ArrayList;
 
@@ -75,5 +72,32 @@ public class ClientLoggedUser {
             CommandsExecutor.getInstance().add(commandRequest);
         }
         public abstract void pick(UserInfo userInfo);
+    }
+    public abstract static class getPosts {
+        public getPosts(long numberPost, String id) {
+            //TODO
+            //Rename it
+            PostSender postSender = new PostSender(numberPost, Long.parseLong(id));
+            Command command = new Command();
+            command.setKeyWord(Post.LOAD_POST_USERS);
+            command.setSharableObject(postSender.convertToJsonString());
+            CommandRequest commandRequest = new CommandRequest(MainServerConnection.mainConnectionSocket, command) {
+                @Override
+                public void analyze(Command cmd) {
+                    if (cmd.getKeyWord().equals(Post.LOAD_POST_USERS)) {
+                        SocialArrayList list = SocialArrayList.convertFromJsonString(cmd.getObjectStr());
+                        ArrayList<Post> posts = new ArrayList<>();
+                        for (int i = 0; i < list.getItems().size(); i++) {
+                            posts.add(Post.fromJsonString(list.getItems().get(i)));
+                        }
+
+                        onFinish(posts);
+                    }
+                }
+
+            };
+            CommandsExecutor.getInstance().add(commandRequest);
+        }
+        public abstract void onFinish(ArrayList<Post> posts);
     }
 }

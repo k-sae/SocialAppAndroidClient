@@ -39,7 +39,7 @@ public class RegisterFragment extends Fragment {
                         if (!id.equals( "-1"))
                         {
                             ClientLoggedUser.id = id;
-                            ((CallBack)getActivity()).navigate(new ContentFragment());
+                            ((FragmentNavigator)getActivity()).navigate(new ContentFragment());
                         }
                         else
                         { getActivity().runOnUiThread(new Runnable() {

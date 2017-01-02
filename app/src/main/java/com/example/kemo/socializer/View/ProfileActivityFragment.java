@@ -9,13 +9,17 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import com.example.kemo.socializer.Control.ClientLoggedUser;
 import com.example.kemo.socializer.R;
+import com.example.kemo.socializer.SocialAppGeneral.Post;
 import com.example.kemo.socializer.View.Adapters.ProfileAdapter;
+
+import java.util.ArrayList;
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class ProfileActivityFragment extends Fragment {
     private ProfileAdapter profileAdapter;
+
     public ProfileActivityFragment() {
     }
 
@@ -25,15 +29,34 @@ public class ProfileActivityFragment extends Fragment {
         profileAdapter = new ProfileAdapter(getActivity());
         Intent intent = getActivity().getIntent();
         String id = intent.getStringExtra(Intent.EXTRA_TEXT);
-        if (id.equals(ClientLoggedUser.id))
-        {
+        if (id.equals(ClientLoggedUser.id)) {
             profileAdapter.getPosts().add(null);
         }
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         ListView listView = (ListView) view.findViewById(R.id.profile_ListView);
         listView.setAdapter(profileAdapter);
-        profileAdapter.notifyDataSetChanged();
         //TODO
+        new ClientLoggedUser.getPosts(1, id) {
+            @Override
+            public void onFinish(ArrayList<Post> posts) {
+                if (profileAdapter.getPosts().size() > 1) {
+                    if (profileAdapter.getPosts().get(0) == null) {
+                        profileAdapter.getPosts().clear();
+                        profileAdapter.getPosts().add(null);
+                    } else {
+                        profileAdapter.getPosts().clear();
+                    }
+                }
+                profileAdapter.getPosts().addAll(posts);
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        profileAdapter.notifyDataSetChanged();
+                    }
+                });
+            }
+        };
         return view;
     }
 }
+

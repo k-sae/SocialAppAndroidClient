@@ -11,7 +11,7 @@ import com.example.kemo.socializer.R;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class ContentFragment extends Fragment implements CallBack {
+public class ContentFragment extends Fragment implements FragmentNavigator {
     private HomeFragment homeFragment;
     private FriendsFragment friendsFragment;
     public ContentFragment() {

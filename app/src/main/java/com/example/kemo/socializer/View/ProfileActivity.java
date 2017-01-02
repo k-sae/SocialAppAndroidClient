@@ -1,5 +1,6 @@
 package com.example.kemo.socializer.View;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,7 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import com.example.kemo.socializer.R;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity implements IntentNavigator {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,4 +28,12 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void navigate(String extra) {
+        Intent intent = new Intent(this, ProfileActivity.class).putExtra(Intent.EXTRA_TEXT,
+                extra);
+        startActivity(intent);
+        finish();
+    }
 }
+

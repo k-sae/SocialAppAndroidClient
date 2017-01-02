@@ -5,13 +5,11 @@ import com.google.gson.Gson;
 /**
  * Created by kemo on 30/10/2016.
  */
-
-/**
- * Created by kemo on 30/10/2016.
- */
 public class LoginInfo implements Shareable {
-    public static final String NEW_LOGIN ="new_login";
-    // using transient GSON will ignore this obj and wont put it in string
+ public static final String NEW_LOGIN ="new_login";
+    //TODO #prototype GSON
+    //just for prototype will be removed
+    private transient final String EMAIL ="email"; //using transient GSON will ignore this obj and wont put it in string
 
     private String email;
     private String password;
@@ -38,14 +36,16 @@ public class LoginInfo implements Shareable {
     }
 
     public static LoginInfo fromJsonString(String jsonStr) {
-
-        Gson gson = new Gson();
+        //TODO #prototype GSON
+        //Read from JSON
+         Gson gson = new Gson();
         return  gson.fromJson(jsonStr, LoginInfo.class);
     }
 
     @Override
     public String convertToJsonString() {
-
+       //TODO #prototype GSON
+        //Write JSON
         Gson gson = new Gson();
         return gson.toJson(this);
     }

@@ -62,12 +62,17 @@ public class FriendsFragment extends Fragment {
                             appUser.setUserInfo(userInfo);
                             appUser.setID(id);
                             friendsAdapter.getAppUsers().add(appUser);
-                            FriendsFragment.this.getActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    friendsAdapter.notifyDataSetChanged();
-                                }
-                            });
+                            try {
+
+
+                                FriendsFragment.this.getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        friendsAdapter.notifyDataSetChanged();
+                                    }
+                                });
+                            }catch (Exception ignored)
+                            {}
                         }
                     };
                 }

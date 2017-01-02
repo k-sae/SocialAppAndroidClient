@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.kemo.socializer.R;
 import com.example.kemo.socializer.SocialAppGeneral.AppUser;
-import com.example.kemo.socializer.View.ImageViewer.Packer;
+import com.example.kemo.socializer.View.Packer.PackImageView;
 
 import java.util.ArrayList;
 
@@ -52,7 +52,7 @@ public class FriendsAdapter extends BaseAdapter {
             view = LayoutInflater.from(context).inflate(R.layout.friend_view,viewGroup, false);
         }
         ((TextView)view.findViewById(R.id.friend_view_textView)).setText(appUsers.get(i).getUserInfo().getFullName());
-        Packer.setImageFromServer((ImageView) view.findViewById(R.id.friend_view_imageView),appUsers.get(i).getUserInfo().getProfileImage());
+        PackImageView.setImageFromServer((ImageView) view.findViewById(R.id.friend_view_imageView),appUsers.get(i).getUserInfo().getProfileImage());
         return view;
     }
 

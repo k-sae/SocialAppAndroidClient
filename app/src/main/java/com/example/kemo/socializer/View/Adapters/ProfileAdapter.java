@@ -1,12 +1,16 @@
 package com.example.kemo.socializer.View.Adapters;
 
-import android.content.Context;
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
+import com.example.kemo.socializer.Control.ClientLoggedUser;
 import com.example.kemo.socializer.R;
 import com.example.kemo.socializer.SocialAppGeneral.Post;
+import com.example.kemo.socializer.SocialAppGeneral.UserInfo;
+import com.example.kemo.socializer.View.IntentNavigator;
 
 import java.util.ArrayList;
 
@@ -15,14 +19,14 @@ import java.util.ArrayList;
  */
 public class ProfileAdapter extends BaseAdapter {
     private ArrayList<Post> posts;
-    private Context context;
+    private Activity context;
 
-    public ProfileAdapter(ArrayList<Post> posts, Context context) {
+    public ProfileAdapter(ArrayList<Post> posts, Activity context) {
         this.posts = posts;
         this.context = context;
     }
 
-    public ProfileAdapter(Context context) {
+    public ProfileAdapter(Activity context) {
         this.context = context;
         posts = new ArrayList<>();
     }
@@ -51,14 +55,51 @@ public class ProfileAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        if (posts.get(i) ==null)
+    public View getView(final int i, View view, ViewGroup viewGroup) {
+       view = inflateLayout(view, i , viewGroup);
+        if (posts.get(i) != null)
         {
-            if (view == null)
-            {
-                view = LayoutInflater.from(context).inflate(R.layout.post_writer,viewGroup,false);
-            }
+            ((TextView)view.findViewById(R.id.post_content)).setText(posts.get(i).getContent());
+            final TextView textView = (TextView) view.findViewById(R.id.friend_view_textView);
+            textView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ((IntentNavigator)context).navigate(posts.get(i).getOwnerId() + "");
+                }
+            });
+            new ClientLoggedUser.GetFriendInfo(posts.get(i).getOwnerId() + "") {
+                @Override
+                public void pick(final UserInfo userInfo) {
+                    context.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            textView.setText(userInfo.getFullName());
+                        }
+                    });
+                }
+            };
         }
         return view;
+    }
+    private View inflateLayout(View view, int i, ViewGroup viewGroup)
+    {
+        if (view == null) {
+            if (posts.get(i) == null) {
+                view = LayoutInflater.from(context).inflate(R.layout.post_writer, viewGroup, false);
+            }
+            else
+            {
+                view = LayoutInflater.from(context).inflate(R.layout.postview, viewGroup,false);
+            }
+        }
+        else if(view.findViewById(R.id.post_content) == null && posts.get(i) == null)
+        {
+            view = LayoutInflater.from(context).inflate(R.layout.post_writer, viewGroup,false);
+        }
+        else
+        {
+            view = LayoutInflater.from(context).inflate(R.layout.postview, viewGroup,false);
+        }
+        return  view;
     }
 }
