@@ -1,16 +1,13 @@
 package com.example.kemo.socializer.View.Adapters;
 
-import android.app.Activity;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.TextView;
-import com.example.kemo.socializer.Control.ClientLoggedUser;
 import com.example.kemo.socializer.R;
 import com.example.kemo.socializer.SocialAppGeneral.Post;
-import com.example.kemo.socializer.SocialAppGeneral.UserInfo;
-import com.example.kemo.socializer.View.IntentNavigator;
+import com.example.kemo.socializer.View.Packer.Packer;
 
 import java.util.ArrayList;
 
@@ -19,14 +16,14 @@ import java.util.ArrayList;
  */
 public class ProfileAdapter extends BaseAdapter {
     private ArrayList<Post> posts;
-    private Activity context;
+    private Context context;
 
-    public ProfileAdapter(ArrayList<Post> posts, Activity context) {
+    public ProfileAdapter(ArrayList<Post> posts, Context context) {
         this.posts = posts;
         this.context = context;
     }
 
-    public ProfileAdapter(Activity context) {
+    public ProfileAdapter(Context context) {
         this.context = context;
         posts = new ArrayList<>();
     }
@@ -59,25 +56,7 @@ public class ProfileAdapter extends BaseAdapter {
        view = inflateLayout(view, i , viewGroup);
         if (posts.get(i) != null)
         {
-            ((TextView)view.findViewById(R.id.post_content)).setText(posts.get(i).getContent());
-            final TextView textView = (TextView) view.findViewById(R.id.friend_view_textView);
-            textView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    ((IntentNavigator)context).navigate(posts.get(i).getOwnerId() + "");
-                }
-            });
-            new ClientLoggedUser.GetFriendInfo(posts.get(i).getOwnerId() + "") {
-                @Override
-                public void pick(final UserInfo userInfo) {
-                    context.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            textView.setText(userInfo.getFullName());
-                        }
-                    });
-                }
-            };
+            Packer.from(context).packPostView(view, posts.get(i));
         }
         return view;
     }

@@ -1,4 +1,4 @@
-package com.example.kemo.socializer.View;
+package com.example.kemo.socializer.View.MainActivity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.example.kemo.socializer.Control.ClientLoggedUser;
 import com.example.kemo.socializer.R;
 import com.example.kemo.socializer.SocialAppGeneral.LoginInfo;
+import com.example.kemo.socializer.View.FragmentNavigator;
 
 /**
  * A placeholder fragment containing a simple view.

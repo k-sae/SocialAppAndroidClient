@@ -13,8 +13,8 @@
     <string name="post">Post</string>
     <string name="title_activity_profile">ProfileActivity</string>
     <string name="share_your_status">Share your status</string>
-    <string name="thump_up">Thump Up</string>
-    <string name="thump_down">Thump Down</string>
+    <string name="thump_up">Up vote</string>
+    <string name="thump_down">Down vote</string>
     <string name="comment">Comment</string>
     <string name="repost">Repost</string>
 </resources>

@@ -1,5 +1,5 @@
 <ListView xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context="com.example.kemo.socializer.View.FriendsFragment" android:id="@+id/friends_listView"/>
+          xmlns:tools="http://schemas.android.com/tools"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          tools:context=".View.MainActivity.FriendsFragment" android:id="@+id/friends_listView"/>

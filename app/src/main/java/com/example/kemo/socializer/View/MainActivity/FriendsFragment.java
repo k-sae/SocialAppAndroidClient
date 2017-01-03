@@ -1,4 +1,4 @@
-package com.example.kemo.socializer.View;
+package com.example.kemo.socializer.View.MainActivity;
 
 
 import android.content.Intent;
@@ -14,6 +14,7 @@ import com.example.kemo.socializer.R;
 import com.example.kemo.socializer.SocialAppGeneral.AppUser;
 import com.example.kemo.socializer.SocialAppGeneral.UserInfo;
 import com.example.kemo.socializer.View.Adapters.FriendsAdapter;
+import com.example.kemo.socializer.View.ProfileActivity.ProfileActivity;
 
 import java.util.ArrayList;
 

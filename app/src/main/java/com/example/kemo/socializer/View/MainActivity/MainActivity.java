@@ -1,4 +1,4 @@
-package com.example.kemo.socializer.View;
+package com.example.kemo.socializer.View.MainActivity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import com.example.kemo.socializer.Connections.MainServerConnection;
 import com.example.kemo.socializer.R;
+import com.example.kemo.socializer.View.FragmentNavigator;
 
 public class MainActivity extends AppCompatActivity implements FragmentNavigator {
 

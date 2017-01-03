@@ -1,4 +1,4 @@
-package com.example.kemo.socializer.View;
+package com.example.kemo.socializer.View.MainActivity;
 
 
 import android.os.Bundle;

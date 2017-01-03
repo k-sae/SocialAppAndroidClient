@@ -1,4 +1,4 @@
-package com.example.kemo.socializer.View;
+package com.example.kemo.socializer.View.ProfileActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import com.example.kemo.socializer.R;
+import com.example.kemo.socializer.View.IntentNavigator;
 
 public class ProfileActivity extends AppCompatActivity implements IntentNavigator {
 
