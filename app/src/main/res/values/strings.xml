@@ -17,4 +17,5 @@
     <string name="thump_down">Down vote</string>
     <string name="comment">Comment</string>
     <string name="repost">Repost</string>
+    <string name="title_activity_comments">CommentsActivity</string>
 </resources>

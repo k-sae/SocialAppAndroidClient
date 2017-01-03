@@ -37,6 +37,12 @@ public class Packer {
     {
         ((TextView) postViewer.findViewById(R.id.post_content)).setText(post.getContent());
         final TextView textView = (TextView) postViewer.findViewById(R.id.friend_view_textView);
+        postViewer.findViewById(R.id.comment_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO
+            }
+        });
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
