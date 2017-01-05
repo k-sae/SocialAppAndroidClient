@@ -28,7 +28,6 @@ public class ProfileActivity extends AppCompatActivity implements IntentNavigato
             }
         });
     }
-
     @Override
     public void navigate(String extra) {
         Intent intent = new Intent(this, ProfileActivity.class).putExtra(Intent.EXTRA_TEXT,

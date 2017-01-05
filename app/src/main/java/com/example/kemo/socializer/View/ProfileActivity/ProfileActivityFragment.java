@@ -58,5 +58,15 @@ public class ProfileActivityFragment extends Fragment {
         };
         return view;
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        fetchData();
+    }
+    private void fetchData()
+    {
+        //TODO
+    }
 }
 

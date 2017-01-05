@@ -5,13 +5,13 @@
               android:layout_height="match_parent">
 
     <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:id="@+id/friend_view_imageView" android:layout_alignParentTop="true" android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" android:contentDescription="@string/friend"/>
     <RelativeLayout
             android:layout_width="0dp"
-            android:layout_height="100dp"
+            android:layout_height="50dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_toRightOf="@+id/friend_view_imageView" android:layout_toEndOf="@+id/friend_view_imageView">

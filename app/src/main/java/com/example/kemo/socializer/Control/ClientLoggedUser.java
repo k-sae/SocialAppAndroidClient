@@ -100,4 +100,25 @@ public class ClientLoggedUser {
         }
         public abstract void onFinish(ArrayList<Post> posts);
     }
+    public abstract static class addComment
+    {
+        public addComment(AttachmentSender attachmentSender) {
+            Command command = new Command();
+            command.setKeyWord(AttachmentSender.ATTACHMENT_USER);
+            command.setSharableObject(attachmentSender.convertToJsonString());
+            CommandRequest commandRequest = new CommandRequest(MainServerConnection.mainConnectionSocket,command) {
+                @Override
+                public void analyze(Command cmd) {
+                    if (cmd.getKeyWord().equals(AttachmentSender.ATTACHMENT_USER)) {
+                        Post b= Post.fromJsonString(cmd.getObjectStr());
+                        if(b.getId() !=0) {
+                            onFinish(b);
+                        }
+                    }
+                }
+            };
+            CommandsExecutor.getInstance().add(commandRequest);
+        }
+        public abstract void onFinish(Post post);
+    }
 }
