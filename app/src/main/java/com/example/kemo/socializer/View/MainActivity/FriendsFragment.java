@@ -11,8 +11,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import com.example.kemo.socializer.Control.ClientLoggedUser;
 import com.example.kemo.socializer.R;
-import com.example.kemo.socializer.SocialAppGeneral.AppUser;
-import com.example.kemo.socializer.SocialAppGeneral.UserInfo;
 import com.example.kemo.socializer.View.Adapters.FriendsAdapter;
 import com.example.kemo.socializer.View.ProfileActivity.ProfileActivity;
 
@@ -42,7 +40,7 @@ public class FriendsFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getActivity(),ProfileActivity.class).putExtra(Intent.EXTRA_TEXT,
-                        friendsAdapter.getAppUsers().get(i).getID());
+                        friendsAdapter.getIds().get(i));
                 startActivity(intent);
             }
         });
@@ -54,30 +52,13 @@ public class FriendsFragment extends Fragment {
         new ClientLoggedUser.GetFriends() {
             @Override
             public void onFinish(ArrayList<String> ids) {
-                for (final String id: ids
-                        ) {
-                    new ClientLoggedUser.GetFriendInfo(id) {
-                        @Override
-                        public void pick(UserInfo userInfo) {
-                            AppUser appUser = new AppUser();
-                            appUser.setUserInfo(userInfo);
-                            appUser.setID(id);
-                            friendsAdapter.getAppUsers().add(appUser);
-                            try {
-
-
-                                FriendsFragment.this.getActivity().runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        friendsAdapter.notifyDataSetChanged();
-                                    }
-                                });
-                            }catch (Exception ignored)
-                            {}
-                        }
-                    };
-                }
-
+                friendsAdapter.setIds(ids);
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        friendsAdapter.notifyDataSetChanged();
+                    }
+                });
             }
         };
     }

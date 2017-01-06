@@ -1,5 +1,6 @@
 package com.example.kemo.socializer.View.MainActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -9,8 +10,10 @@ import android.view.MenuItem;
 import com.example.kemo.socializer.Connections.MainServerConnection;
 import com.example.kemo.socializer.R;
 import com.example.kemo.socializer.View.FragmentNavigator;
+import com.example.kemo.socializer.View.IntentNavigator;
+import com.example.kemo.socializer.View.ProfileActivity.ProfileActivity;
 
-public class MainActivity extends AppCompatActivity implements FragmentNavigator {
+public class MainActivity extends AppCompatActivity implements FragmentNavigator , IntentNavigator{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,5 +68,11 @@ public class MainActivity extends AppCompatActivity implements FragmentNavigator
             }
         });
 
+    }
+    @Override
+    public void navigate(String extra) {
+        Intent intent = new Intent(this, ProfileActivity.class).putExtra(Intent.EXTRA_TEXT,
+                extra);
+        startActivity(intent);
     }
 }

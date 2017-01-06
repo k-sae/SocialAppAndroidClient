@@ -5,10 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
 import com.example.kemo.socializer.R;
-import com.example.kemo.socializer.SocialAppGeneral.AppUser;
 import com.example.kemo.socializer.View.Packer.Packer;
 
 import java.util.ArrayList;
@@ -18,26 +15,26 @@ import java.util.ArrayList;
  */
 public class FriendsAdapter extends BaseAdapter {
     private Context context;
-    private volatile ArrayList<AppUser> appUsers;
+    private volatile ArrayList<String> ids;
 
-    public FriendsAdapter(Context context, ArrayList<AppUser> appUsers) {
+    public FriendsAdapter(Context context, ArrayList<String> ids) {
         this.context = context;
-        this.appUsers = appUsers;
+        this.ids = ids;
     }
 
     public FriendsAdapter(Context context) {
         this.context = context;
-        appUsers = new ArrayList<>();
+        ids = new ArrayList<>();
     }
 
     @Override
     public int getCount() {
-        return appUsers.size();
+        return ids.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return appUsers.get(i);
+        return ids.get(i);
     }
 
     @Override
@@ -51,16 +48,15 @@ public class FriendsAdapter extends BaseAdapter {
         {
             view = LayoutInflater.from(context).inflate(R.layout.friend_view,viewGroup, false);
         }
-        ((TextView)view.findViewById(R.id.friend_view_textView)).setText(appUsers.get(i).getUserInfo().getFullName());
-        Packer.from(context).packImageView((ImageView) view.findViewById(R.id.friend_view_imageView),appUsers.get(i).getUserInfo().getProfileImage());
+        Packer.from(context).packFriendView(view, ids.get(i));
         return view;
     }
 
-    public ArrayList<AppUser> getAppUsers() {
-        return appUsers;
+    public ArrayList<String> getIds() {
+        return ids;
     }
 
-    public void setAppUsers(ArrayList<AppUser> appUsers) {
-        this.appUsers = appUsers;
+    public void setIds(ArrayList<String> ids) {
+        this.ids = ids;
     }
 }
