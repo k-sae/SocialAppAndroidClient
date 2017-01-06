@@ -20,4 +20,9 @@
     <string name="title_activity_comments">CommentsActivity</string>
     <string name="write_a_comment">write a comment</string>
     <string name="send_button">send button</string>
+    <string name="name">Name:</string>
+    <string name="gender">Gender:</string>
+    <string name="birth_date">BirthDate:</string>
+    <string name="profile_pic">profile pic</string>
+    <string name="edit">edit</string>
 </resources>

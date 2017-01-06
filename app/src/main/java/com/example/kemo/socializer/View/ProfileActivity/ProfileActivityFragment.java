@@ -2,6 +2,7 @@ package com.example.kemo.socializer.View.ProfileActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.ListView;
 import com.example.kemo.socializer.Control.ClientLoggedUser;
 import com.example.kemo.socializer.R;
 import com.example.kemo.socializer.SocialAppGeneral.Post;
+import com.example.kemo.socializer.SocialAppGeneral.UserInfo;
 import com.example.kemo.socializer.View.Adapters.ProfileAdapter;
 
 import java.util.ArrayList;
@@ -40,34 +42,44 @@ public class ProfileActivityFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        fetchData();
+        getProfileInfo();
     }
-    private void fetchData()
+    private void fetchPosts(String id)
     {
         //TODO
-        Intent intent = getActivity().getIntent();
-        String id = intent.getStringExtra(Intent.EXTRA_TEXT);
+
         if (id.equals(ClientLoggedUser.id)) {
-            profileAdapter.getPosts().add(null);
+            profileAdapter.getObjects().add(null);
         }
         new ClientLoggedUser.getPosts(1, id) {
             @Override
             public void onFinish(ArrayList<Post> posts) {
-                if (profileAdapter.getPosts().size() > 1) {
-                    if (profileAdapter.getPosts().get(0) == null) {
-                        profileAdapter.getPosts().clear();
-                        profileAdapter.getPosts().add(null);
-                    } else {
-                        profileAdapter.getPosts().clear();
-                    }
-                }
-                profileAdapter.getPosts().addAll(posts);
+                profileAdapter.getObjects().addAll(posts);
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         profileAdapter.notifyDataSetChanged();
                     }
                 });
+            }
+        };
+    }
+    private void getProfileInfo()
+    {
+        Intent intent = getActivity().getIntent();
+        final String id = intent.getStringExtra(Intent.EXTRA_TEXT);
+        new ClientLoggedUser.GetFriendInfo(id + "") {
+            @Override
+            public void pick(final UserInfo userInfo) {
+                profileAdapter.getObjects().clear();
+                profileAdapter.getObjects().add(userInfo);
+                new Handler(getActivity().getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        profileAdapter.notifyDataSetChanged();
+                    }
+                });
+                fetchPosts(id);
             }
         };
     }

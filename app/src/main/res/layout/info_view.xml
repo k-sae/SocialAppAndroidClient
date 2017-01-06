@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/profile_pic" android:layout_alignParentTop="true" android:layout_centerHorizontal="true"
+            android:contentDescription="@string/profile_pic"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/name"
+            android:id="@+id/t1"
+            android:layout_alignParentLeft="true" android:layout_below="@id/profile_pic"
+            android:layout_alignParentStart="true"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/gender"
+            android:id="@+id/t2" android:layout_below="@+id/t1"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/birth_date"
+            android:id="@+id/t3"
+            android:layout_below="@+id/t2" android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/user_birthDate" android:layout_alignTop="@+id/t3"
+            android:layout_toRightOf="@+id/t3" android:layout_toEndOf="@+id/t3"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/user_gender"
+            android:layout_above="@+id/t3" android:layout_toRightOf="@+id/t3"
+            android:layout_toEndOf="@+id/t3"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/user_name"
+            android:layout_above="@+id/user_gender" android:layout_alignLeft="@+id/user_gender"
+            android:layout_alignStart="@+id/user_gender"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/edit"
+            android:id="@+id/edit_userInfo"
+            android:layout_below="@+id/user_birthDate" android:layout_centerHorizontal="true"/>
+</RelativeLayout>

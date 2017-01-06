@@ -81,4 +81,12 @@ public class Packer {
         };
         return this;
     }
+    public Packer packUserInfo(View infoView, UserInfo userInfo)
+    {
+        ((TextView)infoView.findViewById(R.id.user_name)).setText(userInfo.getFullName());
+        ((TextView)infoView.findViewById(R.id.user_gender)).setText(userInfo.getGender());
+        ((TextView)infoView.findViewById(R.id.user_birthDate)).setText(userInfo.getBirthDate());
+        packImageView(((ImageView)infoView.findViewById(R.id.profile_pic)), userInfo.getProfileImage());
+        return this;
+    }
 }
