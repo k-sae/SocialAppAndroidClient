@@ -27,15 +27,29 @@ public class ProfileActivityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         profileAdapter = new ProfileAdapter(getActivity());
+
+
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        ListView listView = (ListView) view.findViewById(R.id.profile_ListView);
+        listView.setAdapter(profileAdapter);
+        //TODO
+
+        return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        fetchData();
+    }
+    private void fetchData()
+    {
+        //TODO
         Intent intent = getActivity().getIntent();
         String id = intent.getStringExtra(Intent.EXTRA_TEXT);
         if (id.equals(ClientLoggedUser.id)) {
             profileAdapter.getPosts().add(null);
         }
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
-        ListView listView = (ListView) view.findViewById(R.id.profile_ListView);
-        listView.setAdapter(profileAdapter);
-        //TODO
         new ClientLoggedUser.getPosts(1, id) {
             @Override
             public void onFinish(ArrayList<Post> posts) {
@@ -56,17 +70,6 @@ public class ProfileActivityFragment extends Fragment {
                 });
             }
         };
-        return view;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        fetchData();
-    }
-    private void fetchData()
-    {
-        //TODO
     }
 }
 
