@@ -130,10 +130,10 @@ public class Packer {
     }
     public Packer packNotification(View view, Notification notification)
     {
-        ((TextView)view).setText(String.format("%s%s",
+        ((TextView)view.findViewById(R.id.notification_details)).setText(String.format("%s%s",
                 notification.getKeyword().toString().toLowerCase(),
                 context.getString(R.string.notification_constant_message)));
-        pack
+        packFriendView(view, notification.getIdSender());
         return this;
     }
 }

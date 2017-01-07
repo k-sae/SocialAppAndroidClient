@@ -18,8 +18,13 @@ public class NotificationAdapter extends BaseAdapter {
     private ArrayList<Notification> notifications;
     private Context context;
 
+    public NotificationAdapter() {
+        notifications = new ArrayList<>();
+    }
+
     public NotificationAdapter(Context context) {
         this.context = context;
+        notifications = new ArrayList<>();
     }
 
     public NotificationAdapter(ArrayList<Notification> notifications, Context context) {
@@ -50,5 +55,21 @@ public class NotificationAdapter extends BaseAdapter {
         }
         Packer.from(context).packNotification(view, notifications.get(i));
         return view;
+    }
+
+    public ArrayList<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(ArrayList<Notification> notifications) {
+        this.notifications = notifications;
+    }
+
+    public Context getContext() {
+        return context;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
     }
 }

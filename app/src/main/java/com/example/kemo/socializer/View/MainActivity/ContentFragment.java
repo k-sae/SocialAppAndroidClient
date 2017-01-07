@@ -12,6 +12,7 @@ import com.example.kemo.socializer.Connections.UtilityConnection;
 import com.example.kemo.socializer.Control.ClientLoggedUser;
 import com.example.kemo.socializer.R;
 import com.example.kemo.socializer.SocialAppGeneral.Command;
+import com.example.kemo.socializer.SocialAppGeneral.Notification;
 import com.example.kemo.socializer.SocialAppGeneral.SocialArrayList;
 import com.example.kemo.socializer.View.FragmentNavigator;
 
@@ -87,7 +88,10 @@ public class ContentFragment extends Fragment implements FragmentNavigator {
                                         new ClientLoggedUser.LoadNotification() {
                                             @Override
                                             public void onFinish(SocialArrayList list) {
-                                                //TODO
+                                                for ( String o : list.getItems()
+                                                        ) {
+                                                    notificationFragment.addNotification(Notification.fromJsonString(o));
+                                                }
                                             }
                                         };
                                     }
@@ -95,7 +99,10 @@ public class ContentFragment extends Fragment implements FragmentNavigator {
                                         .getConnectionSocket()) {
                             @Override
                             public void Analyze(Command command) {
-                                //TODO
+                                if (command.getKeyWord().equals(Notification.NEW_NOTIFICATION))
+                                {
+                                    notificationFragment.addNotification(Notification.fromJsonString(command.getObjectStr()));
+                                }
                             }
                         };
                         receiveServerCommand.start();

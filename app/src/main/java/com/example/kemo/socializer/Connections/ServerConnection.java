@@ -22,7 +22,7 @@ public abstract class ServerConnection implements Connection{
         port = -1;
         this.serverName = serverName;
        while(port == -1) {
-           Log.e("I", "Iam in");
+           Log.e("social app", "connecting...");
            findPort(startPort, startPort + 3);
        }
             startConnection();
