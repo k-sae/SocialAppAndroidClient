@@ -121,4 +121,40 @@ public class ClientLoggedUser {
         }
         public abstract void onFinish(Post post);
     }
+    public abstract static class addUserPost
+    {
+        public addUserPost(Post post)
+        {
+            Command command = new Command();
+            command.setKeyWord(Post.SAVE_POST_USER);
+            command.setSharableObject(post.convertToJsonString());
+            CommandRequest commandRequest = new CommandRequest(MainServerConnection.mainConnectionSocket,command) {
+                @Override
+                public void analyze(Command cmd) {
+                    if (cmd.getKeyWord().equals(Post.SAVE_POST_USER)) {
+                      onFinish(cmd.getObjectStr());
+                    }
+                }
+            };
+            CommandsExecutor.getInstance().add(commandRequest);
+        }
+        public abstract void onFinish(String result);
+    }
+    public static abstract class LoadNotification
+    {
+        public LoadNotification()
+        {
+            Command command = new Command();
+            command.setKeyWord(Notification.LOAD_NOTI);
+
+            CommandRequest commandRequest = new CommandRequest(MainServerConnection.mainConnectionSocket, command) {
+                @Override
+                public void analyze(Command commandFromServer) {
+                    onFinish (SocialArrayList.convertFromJsonString(commandFromServer.getObjectStr()));
+                }
+            };
+            CommandsExecutor.getInstance().add(commandRequest);
+        }
+        public abstract void onFinish(SocialArrayList list );
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.kemo.socializer.View.Adapters;
 
 import android.content.Context;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 /**
  * Created by kemo on 28/12/2016.
  */
-public class ProfileAdapter extends BaseAdapter {
+public class ProfileAdapter extends BaseAdapter implements StackAdapter {
     private ArrayList<Object> objects;
     private Context context;
 
@@ -59,8 +60,10 @@ public class ProfileAdapter extends BaseAdapter {
     }
     private View inflateLayout(View view, Object o, ViewGroup viewGroup)
     {
+
         if (view == null)
         {
+            //3 cases
             if (o == null)
             {
                 //from writer
@@ -78,11 +81,13 @@ public class ProfileAdapter extends BaseAdapter {
                 view = LayoutInflater.from(context).inflate(R.layout.info_view, viewGroup,false);
             }
         }
+        //3 cases
         if (o == null)
         {
             //from writer
             if (view.findViewById(R.id.post_button) == null)
             view = LayoutInflater.from(context).inflate(R.layout.post_writer, viewGroup, false);
+            Packer.from(context).packPostWriter(view,this);
         }
         else if(o instanceof Post)
         {
@@ -99,5 +104,25 @@ public class ProfileAdapter extends BaseAdapter {
             Packer.from(context).packUserInfo(view, (UserInfo)o);
         }
         return  view;
+    }
+
+    @Override
+    public void insertTop(Object o) {
+        if (objects.size() > 2)
+        {
+            if(objects.get(1) == null)
+            {
+                objects.add(2,o);
+            }
+            else objects.add(1,0);
+        }
+        else  objects.add(o);
+        new Handler(context.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+             notifyDataSetChanged();
+            }
+        });
+
     }
 }

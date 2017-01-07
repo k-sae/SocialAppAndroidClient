@@ -50,7 +50,7 @@ public class CommentsAdapter extends BaseAdapter {
         {
             view =  LayoutInflater.from(context).inflate(R.layout.comment_view,viewGroup, false);
         }
-        Packer.from(context).packCommentView(view, comments.get(i));
+        Packer.from(context).packCommentView(view, comments.get(i)).showProfileImage(false);
         return view;
     }
     public ArrayList<Comment> getComments() {

@@ -4,13 +4,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.kemo.socializer.Control.ClientLoggedUser;
 import com.example.kemo.socializer.R;
 import com.example.kemo.socializer.SocialAppGeneral.Comment;
+import com.example.kemo.socializer.SocialAppGeneral.Notification;
 import com.example.kemo.socializer.SocialAppGeneral.Post;
 import com.example.kemo.socializer.SocialAppGeneral.UserInfo;
+import com.example.kemo.socializer.View.Adapters.StackAdapter;
 import com.example.kemo.socializer.View.CommentsActivity.CommentsActivity;
 import com.example.kemo.socializer.View.IntentNavigator;
 
@@ -20,8 +23,16 @@ import com.example.kemo.socializer.View.IntentNavigator;
 public class Packer {
 
     private Context context;
+
+    public Packer showProfileImage(boolean showProfileImage) {
+        this.showProfileImage = showProfileImage;
+        return this;
+    }
+
+    private boolean showProfileImage;
     private Packer(Context context)
     {
+        showProfileImage = true;
         this.context = context;
     }
     public Packer packImageView(ImageView imageView, String id)
@@ -33,7 +44,6 @@ public class Packer {
     public static Packer from(Context context)
     {
         return new Packer(context);
-
     }
     public  Packer packPostView(final View postViewer, final Post post)
     {
@@ -48,7 +58,6 @@ public class Packer {
                 context.startActivity(intent);
             }
         });
-
 
         return this;
     }
@@ -74,7 +83,8 @@ public class Packer {
                     @Override
                     public void run() {
                         textView.setText(userInfo.getFullName());
-                        packImageView((ImageView) friendView.findViewById(R.id.friend_view_imageView),userInfo.getProfileImage());
+                        setProfileImage((ImageView) friendView.findViewById(R.id.friend_view_imageView),
+                                userInfo.getProfileImage());
                     }
                 });
             }
@@ -86,7 +96,44 @@ public class Packer {
         ((TextView)infoView.findViewById(R.id.user_name)).setText(userInfo.getFullName());
         ((TextView)infoView.findViewById(R.id.user_gender)).setText(userInfo.getGender());
         ((TextView)infoView.findViewById(R.id.user_birthDate)).setText(userInfo.getBirthDate());
-        packImageView(((ImageView)infoView.findViewById(R.id.profile_pic)), userInfo.getProfileImage());
+        setProfileImage(((ImageView)infoView.findViewById(R.id.profile_pic)), userInfo.getProfileImage());
+        return this;
+    }
+    private void setProfileImage(ImageView imageView, String id)
+    {
+        if (showProfileImage)
+            packImageView(imageView,id);
+        else {
+            imageView.getLayoutParams().width = 0;
+        }
+
+    }
+    public Packer packPostWriter(final View postWriter, final StackAdapter stackAdapter)
+    {
+        postWriter.findViewById(R.id.post_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Post post=new Post();
+                post.setOwnerId(Long.parseLong(ClientLoggedUser.id));
+                post.setContent(((EditText)postWriter.findViewById(R.id.editText)).getText().toString());
+                post.setPostPos(Long.parseLong(ClientLoggedUser.id));
+                new ClientLoggedUser.addUserPost(post) {
+                    @Override
+                    public void onFinish(String result) {
+                        stackAdapter.insertTop(post);
+                    }
+                };
+            }
+        });
+
+        return this;
+    }
+    public Packer packNotification(View view, Notification notification)
+    {
+        ((TextView)view).setText(String.format("%s%s",
+                notification.getKeyword().toString().toLowerCase(),
+                context.getString(R.string.notification_constant_message)));
+        pack
         return this;
     }
 }
