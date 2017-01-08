@@ -33,7 +33,7 @@ public class NotificationFragment extends Fragment {
         listView.setAdapter(notificationAdapter);
         return view;
     }
-    public void addNotification(Notification... notifications)
+    void addNotification(Notification... notifications)
     {
         for (Notification notification: notifications
              ) {

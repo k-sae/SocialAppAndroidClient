@@ -1,4 +1,4 @@
-package com.example.kemo.socializer.Control;
+package com.example.kemo.socializer.Connections;
 
 import java.util.ArrayList;
 

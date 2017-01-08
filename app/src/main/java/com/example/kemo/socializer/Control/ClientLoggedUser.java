@@ -1,5 +1,7 @@
 package com.example.kemo.socializer.Control;
 
+import com.example.kemo.socializer.Connections.CommandRequest;
+import com.example.kemo.socializer.Connections.CommandsExecutor;
 import com.example.kemo.socializer.Connections.MainServerConnection;
 import com.example.kemo.socializer.SocialAppGeneral.*;
 
