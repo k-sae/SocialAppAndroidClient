@@ -5,9 +5,13 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import com.example.kemo.socializer.Connections.MainServerConnection;
+import com.example.kemo.socializer.Connections.CommandsExecutor;
+import com.example.kemo.socializer.Connections.ConnectionListener;
+import com.example.kemo.socializer.Connections.TransmissionFailureListener;
+import com.example.kemo.socializer.Control.MainServerConnection;
 import com.example.kemo.socializer.R;
 import com.example.kemo.socializer.View.FragmentNavigator;
 import com.example.kemo.socializer.View.IntentNavigator;
@@ -25,12 +29,33 @@ public class MainActivity extends AppCompatActivity implements FragmentNavigator
             @Override
             public void run() {
                 try {
-                    new MainServerConnection();
+                   final MainServerConnection mainServerConnection = new MainServerConnection();
+                    CommandsExecutor.getInstance().setOnTransmissionFailure(new TransmissionFailureListener() {
+                        @Override
+                        public void onDisconnection() {
+                            mainServerConnection.endConnection();
+                            mainServerConnection.reconnect();
+                            CommandsExecutor.getInstance().updateSocket(mainServerConnection.connectionSocket);
+                        }
+                    });
+                    mainServerConnection.setConnectionListener(new ConnectionListener() {
+                        @Override
+                        public void onStart() {
+                            Log.w("connection", "connecting...");
+                        }
+
+                        @Override
+                        public void onConnectionSuccess() {
+                            Log.w("connection", "connected...");
+                        }
+                    });
+                    mainServerConnection.connect();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         }).start();
+
         navigate(new RegisterFragment());
     }
 

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.example.kemo.socializer.Connections.ReceiveServerNotification;
 import com.example.kemo.socializer.Connections.ServerNotFound;
+import com.example.kemo.socializer.Connections.TransmissionFailureListener;
 import com.example.kemo.socializer.Connections.UtilityConnection;
 import com.example.kemo.socializer.Control.ClientLoggedUser;
 import com.example.kemo.socializer.R;
@@ -15,6 +16,8 @@ import com.example.kemo.socializer.SocialAppGeneral.Command;
 import com.example.kemo.socializer.SocialAppGeneral.Notification;
 import com.example.kemo.socializer.SocialAppGeneral.SocialArrayList;
 import com.example.kemo.socializer.View.FragmentNavigator;
+
+import java.io.IOException;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -79,7 +82,7 @@ public class ContentFragment extends Fragment implements FragmentNavigator {
             public void run() {
                 {
                     try {
-                        ReceiveServerNotification receiveServerCommand = new ReceiveServerNotification(
+                        final ReceiveServerNotification receiveServerCommand = new ReceiveServerNotification(
                                 new UtilityConnection(ClientLoggedUser.id, PORT_NO) {
                                     //TODO #Polymorphism #override
                                     @Override
@@ -105,6 +108,21 @@ public class ContentFragment extends Fragment implements FragmentNavigator {
                                 }
                             }
                         };
+                        receiveServerCommand.setTransmissionFailureListener(new TransmissionFailureListener() {
+                            @Override
+                            public void onDisconnection() {
+                                try {
+                                    receiveServerCommand.getRemote().close();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                                try {
+                                    receiveServerCommand.setRemote(new UtilityConnection(ClientLoggedUser.id, PORT_NO).getConnectionSocket());
+                                } catch (ServerNotFound serverNotFound) {
+                                    serverNotFound.printStackTrace();
+                                }
+                            }
+                        });
                         receiveServerCommand.start();
                     } catch (ServerNotFound ignored) {
                     } catch (Exception e) {

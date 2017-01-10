@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.ArrayList;
 
 /**
  * Created by kemo on 28/10/2016.
@@ -17,15 +18,24 @@ public abstract class ServerConnection implements Connection{
     private int port;
     private String serverName;
     public Socket connectionSocket;
-
-   public ServerConnection(String serverName, int startPort) throws ServerNotFound {
+    private ArrayList<ConnectionListener> connectionListeners;
+    public ServerConnection()
+    {
+        connectionListeners = new ArrayList<>();
+    }
+    public void connect(String serverName, int startPort) throws ServerNotFound
+    {
         port = -1;
         this.serverName = serverName;
-       while(port == -1) {
-           Log.e("social app", "connecting...");
-           findPort(startPort, startPort + 3);
-       }
-            startConnection();
+        triggerStartingConnection();
+        while(port == -1) {
+            findPort(startPort, startPort + 3);
+        }
+        startConnection();
+    }
+   public ServerConnection(String serverName, int startPort) throws ServerNotFound {
+       connectionListeners = new ArrayList<>();
+        connect(serverName,startPort);
     }
     private void findPort(int sPort, int ePort)
     {
@@ -36,6 +46,7 @@ public abstract class ServerConnection implements Connection{
             //verify if the socket found is the desired socket
             verifyConnection();
             port = sPort;
+            triggerConnectionStarted();
             connectionSocket.setSoTimeout(5000);
         }
         catch (IOException e) {
@@ -58,5 +69,22 @@ public abstract class ServerConnection implements Connection{
             e.printStackTrace();
         }
     }
-
+    private void triggerStartingConnection()
+    {
+        //noinspection ForLoopReplaceableByForEach
+        for (int i = 0; i < connectionListeners.size(); i++) {
+            connectionListeners.get(i).onStart();
+        }
+    }
+    private void triggerConnectionStarted()
+    {
+        //noinspection ForLoopReplaceableByForEach
+        for(int i = 0; i < connectionListeners.size(); i++) {
+            connectionListeners.get(i).onConnectionSuccess();
+        }
+    }
+    public void setConnectionListener(ConnectionListener connectionListener)
+    {
+        connectionListeners.add(connectionListener);
+    }
 }

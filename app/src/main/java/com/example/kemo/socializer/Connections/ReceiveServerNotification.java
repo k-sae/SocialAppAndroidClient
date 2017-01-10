@@ -21,4 +21,14 @@ public abstract class ReceiveServerNotification extends ReceiveCommand {
     }
 
   abstract   public void Analyze(Command command);
+
+    @Override
+    public void setRemote(Socket remote) {
+        super.setRemote(remote);
+        try {
+            remote.setSoTimeout(0);
+        } catch (SocketException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -1,4 +1,7 @@
-package com.example.kemo.socializer.Connections;
+package com.example.kemo.socializer.Control;
+
+import com.example.kemo.socializer.Connections.ServerConnection;
+import com.example.kemo.socializer.Connections.ServerNotFound;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -6,35 +9,39 @@ import java.net.Socket;
 /**
  * Created by kemo on 08/11/2016.
  */
-public class MainServerConnection {
+public class MainServerConnection extends ServerConnection {
     public static Socket mainConnectionSocket;
     private static boolean isActiveConnection;
     public MainServerConnection() throws Exception {
+    }
+    public void reconnect()
+    {
+        try {
+            connect();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void connect() throws Exception
+    {
         if (mainConnectionSocket !=null)
         {
             if (mainConnectionSocket.isClosed())
             {
-                startConnection();
+                start();
             }
         }
         else if (!isActiveConnection)
         {
             isActiveConnection = true;
-            startConnection();
+            start();
         }
     }
-
-    private void startConnection() throws Exception {
+    private void start() throws ServerNotFound {
         //here i will check for user info and choose whether to continue the connection or to end it
-        new ServerConnection("192.168.43.195",6000) {
-            @Override
-            public void startConnection() {
-                mainConnectionSocket = connectionSocket;
-                isActiveConnection = false;
-            }
-        };
+        super.connect("192.168.43.195",6000);
     }
-    public static void endConnection()
+    public void endConnection()
     {
         if (mainConnectionSocket != null)
         {
@@ -44,5 +51,11 @@ public class MainServerConnection {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public void startConnection() {
+        mainConnectionSocket = connectionSocket;
+        isActiveConnection = false;
     }
 }
