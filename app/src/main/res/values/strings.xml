@@ -26,4 +26,6 @@
     <string name="profile_pic">profile pic</string>
     <string name="edit">edit</string>
     <string name="notification_constant_message">" on your post"</string>
+    <string name="connecting">Connecting...</string>
+    <string name="connected">Connected</string>
 </resources>

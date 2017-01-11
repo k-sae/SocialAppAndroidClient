@@ -5,9 +5,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import com.example.kemo.socializer.Connections.CommandsExecutor;
 import com.example.kemo.socializer.Connections.ConnectionListener;
 import com.example.kemo.socializer.Connections.TransmissionFailureListener;
@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements FragmentNavigator
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -41,12 +42,41 @@ public class MainActivity extends AppCompatActivity implements FragmentNavigator
                     mainServerConnection.setConnectionListener(new ConnectionListener() {
                         @Override
                         public void onStart() {
-                            Log.w("connection", "connecting...");
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    MainActivity.this.findViewById(R.id.connecting_bar).setVisibility(View.VISIBLE);
+                                }
+                            });
+
+
                         }
 
                         @Override
                         public void onConnectionSuccess() {
-                            Log.w("connection", "connected...");
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    MainActivity.this.findViewById(R.id.connecting_bar).setVisibility(View.GONE);
+                                    MainActivity.this.findViewById(R.id.connected_bar).setVisibility(View.VISIBLE);
+                                }
+                            });
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    try {
+                                        Thread.sleep(1500);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            MainActivity.this.findViewById(R.id.connected_bar).setVisibility(View.GONE);
+                                        }
+                                    });
+                                }
+                            }).start();
                         }
                     });
                     mainServerConnection.connect();
