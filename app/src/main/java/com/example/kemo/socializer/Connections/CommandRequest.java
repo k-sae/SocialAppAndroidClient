@@ -35,7 +35,10 @@ public abstract class CommandRequest {
                 @Override
                 public void run() {
                     super.run();
-                    analyze(Command.fromString(s));
+                    //put it later
+//                    try {
+                        analyze(Command.fromString(s));
+//                    }catch (Exception ignored){}
                 }
             };
           thread.start();
