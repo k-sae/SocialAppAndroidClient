@@ -158,4 +158,108 @@ public class ClientLoggedUser {
         }
         public abstract void onFinish(SocialArrayList list );
     }
+    public static abstract class GetRelation
+    {
+        public GetRelation(String id)
+        {
+            Command command = new Command();
+            command.setKeyWord(LoggedUser.GET_RELATION_STATUS);
+            command.setSharableObject(id);
+            CommandRequest commandRequest = new CommandRequest(MainServerConnection.mainConnectionSocket,command) {
+                @Override
+                public void analyze(Command cmd) {
+                    onFinish(cmd.getObjectStr());
+                }
+            };
+            CommandsExecutor.getInstance().add(commandRequest);
+        }
+        public abstract void onFinish(String s);
+    }
+    public static abstract class AcceptFriendReq
+    {
+        public AcceptFriendReq(String id)
+        {
+            Command command = initialize(id);
+            command.setKeyWord(LoggedUser.ACCEPT_FRIEND);
+            CommandRequest commandRequest = new CommandRequest(MainServerConnection.mainConnectionSocket, command) {
+                @Override
+                public void analyze(Command commandFromServer) {
+                    onFinish(commandFromServer);
+                }
+            };
+            CommandsExecutor.getInstance().add(commandRequest);
+        }
+        public abstract void onFinish(Command cmd);
+    }
+
+    public static abstract class DeclineFriendReq
+    {
+        public DeclineFriendReq(String id)
+        {
+            Command command = initialize(id);
+            command.setKeyWord(LoggedUser.DECLINE_FRIEND);
+            CommandRequest commandRequest = new CommandRequest(MainServerConnection.mainConnectionSocket, command) {
+                @Override
+                public void analyze(Command commandFromServer) {
+                    onFinish(commandFromServer);
+                }
+            };
+            CommandsExecutor.getInstance().add(commandRequest);
+        }
+        public abstract void onFinish(Command cmd);
+    }
+    public static abstract class RemoveFriend
+    {
+        public RemoveFriend(String id)
+        {
+            Command command = initialize(id);
+            command.setKeyWord(LoggedUser.REMOVE_FRIEND);
+            CommandRequest commandRequest = new CommandRequest(MainServerConnection.mainConnectionSocket, command) {
+                @Override
+                public void analyze(Command commandFromServer) {
+                    onFinish(commandFromServer);
+                }
+            };
+            CommandsExecutor.getInstance().add(commandRequest);
+        }
+        public abstract void onFinish(Command cmd);
+    }
+    public static abstract class CancelFriendReq
+    {
+        public CancelFriendReq(String id)
+        {
+            Command command = initialize(id);
+            command.setKeyWord(LoggedUser.CANCEL_FRIEND_REQ);
+            CommandRequest commandRequest = new CommandRequest(MainServerConnection.mainConnectionSocket, command) {
+                @Override
+                public void analyze(Command commandFromServer) {
+                    onFinish(commandFromServer);
+                }
+            };
+            CommandsExecutor.getInstance().add(commandRequest);
+        }
+        public abstract void onFinish(Command cmd);
+    }
+    public static abstract class addFriend
+    {
+        public addFriend(String id)
+        {
+            Command command = initialize(id);
+            command.setKeyWord(LoggedUser.ADD_FRIEND);
+            CommandRequest commandRequest = new CommandRequest(MainServerConnection.mainConnectionSocket, command) {
+                @Override
+                public void analyze(Command commandFromServer) {
+                    onFinish(commandFromServer);
+                }
+            };
+            CommandsExecutor.getInstance().add(commandRequest);
+        }
+        public abstract void onFinish(Command cmd);
+    }
+    private static Command initialize(String id)
+    {
+        Command command = new Command();
+        command.setSharableObject(id);
+        return command;
+    }
 }

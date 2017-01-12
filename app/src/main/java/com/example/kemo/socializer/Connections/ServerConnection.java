@@ -6,6 +6,7 @@ import com.example.kemo.socializer.SocialAppGeneral.Connection;
 
 import java.io.DataInputStream;
 import java.io.IOException;
+import java.net.ConnectException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketException;
@@ -49,13 +50,27 @@ public abstract class ServerConnection implements Connection{
             triggerConnectionStarted();
             connectionSocket.setSoTimeout(5000);
         }
+        catch (ConnectException e)
+        {
+            try {
+                Thread.sleep(400);
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
+            Log.w("Reconnecting on ", String.valueOf(sPort));
+            findPort(sPort + 1, ePort);
+        }
         catch (IOException e) {
             Log.w("Reconnecting on ", String.valueOf(sPort));
             findPort(sPort + 1, ePort);
         }
         catch (Exception e)
         {
-            e.printStackTrace();
+            try {
+                Thread.sleep(400);
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
         }
     }
     private void verifyConnection() throws IOException {

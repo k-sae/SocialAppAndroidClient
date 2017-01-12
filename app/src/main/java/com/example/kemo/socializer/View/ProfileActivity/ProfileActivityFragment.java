@@ -30,7 +30,6 @@ public class ProfileActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
         profileAdapter = new ProfileAdapter(getActivity());
 
-
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         ListView listView = (ListView) view.findViewById(R.id.profile_ListView);
         listView.setAdapter(profileAdapter);
@@ -68,6 +67,7 @@ public class ProfileActivityFragment extends Fragment {
     {
         Intent intent = getActivity().getIntent();
         final String id = intent.getStringExtra(Intent.EXTRA_TEXT);
+        profileAdapter.setUserId(id);
         new ClientLoggedUser.GetFriendInfo(id + "") {
             @Override
             public void pick(final UserInfo userInfo) {

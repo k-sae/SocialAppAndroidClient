@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class ProfileAdapter extends BaseAdapter implements StackAdapter {
     private ArrayList<Object> objects;
     private Context context;
-
+    private String userId;
     public ProfileAdapter(ArrayList<Object> posts, Context context) {
         this.objects = posts;
         this.context = context;
@@ -101,7 +101,7 @@ public class ProfileAdapter extends BaseAdapter implements StackAdapter {
             //from info viewer
             if (view.findViewById(R.id.profile_pic) == null)
             view = LayoutInflater.from(context).inflate(R.layout.info_view, viewGroup,false);
-            Packer.from(context).packUserInfo(view, (UserInfo)o);
+            Packer.from(context).packUserInfo(view, (UserInfo)o, userId);
         }
         return  view;
     }
@@ -124,5 +124,9 @@ public class ProfileAdapter extends BaseAdapter implements StackAdapter {
             }
         });
 
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }
