@@ -1,6 +1,7 @@
 package com.example.kemo.socializer.View.MainActivity;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,9 +10,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.example.kemo.socializer.Control.ClientLoggedUser;
+import com.example.kemo.socializer.Control.CredentialsUtl;
+import com.example.kemo.socializer.Control.LoginCredentials;
 import com.example.kemo.socializer.R;
 import com.example.kemo.socializer.SocialAppGeneral.LoginInfo;
 import com.example.kemo.socializer.View.FragmentNavigator;
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -19,6 +24,11 @@ import com.example.kemo.socializer.View.FragmentNavigator;
 public class RegisterFragment extends Fragment {
 
     public RegisterFragment() {
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -31,7 +41,7 @@ public class RegisterFragment extends Fragment {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LoginInfo loginInfo = new LoginInfo();
+                final LoginInfo loginInfo = new LoginInfo();
                 loginInfo.setEmail(emailTextEdit.getText().toString());
                 loginInfo.setPassword(passwordTextEdit.getText().toString());
                 new ClientLoggedUser.Login(loginInfo) {
@@ -39,6 +49,11 @@ public class RegisterFragment extends Fragment {
                     public void onFinish(String id) {
                         if (!id.equals( "-1"))
                         {
+                            Realm realm = CredentialsUtl.getRealmInstance(getActivity());
+                            clearRealmItems(realm);
+                            realm.beginTransaction();
+                            realm.copyToRealm( CredentialsUtl.fromLoginInfo(loginInfo));
+                            realm.commitTransaction();
                             ClientLoggedUser.id = id;
                             ((FragmentNavigator)getActivity()).navigate(new ContentFragment());
                         }
@@ -55,5 +70,12 @@ public class RegisterFragment extends Fragment {
             }
         });
         return view;
+    }
+    private void clearRealmItems(Realm realm)
+    {
+        RealmResults<LoginCredentials> realmResults = realm.where(LoginCredentials.class).findAll();
+        realm.beginTransaction();
+        realmResults.clear();
+        realm.commitTransaction();
     }
 }

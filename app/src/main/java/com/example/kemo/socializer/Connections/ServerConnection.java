@@ -53,7 +53,7 @@ public abstract class ServerConnection implements Connection{
         catch (ConnectException e)
         {
             try {
-                Thread.sleep(400);
+                Thread.sleep(1500);
             } catch (InterruptedException e1) {
                 e1.printStackTrace();
             }

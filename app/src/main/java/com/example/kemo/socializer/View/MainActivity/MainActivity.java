@@ -11,6 +11,9 @@ import android.view.View;
 import com.example.kemo.socializer.Connections.CommandsExecutor;
 import com.example.kemo.socializer.Connections.ConnectionListener;
 import com.example.kemo.socializer.Connections.TransmissionFailureListener;
+import com.example.kemo.socializer.Control.ClientLoggedUser;
+import com.example.kemo.socializer.Control.CredentialsUtl;
+import com.example.kemo.socializer.Control.LoginCredentials;
 import com.example.kemo.socializer.Control.MainServerConnection;
 import com.example.kemo.socializer.R;
 import com.example.kemo.socializer.View.FragmentNavigator;
@@ -85,7 +88,26 @@ public class MainActivity extends AppCompatActivity implements FragmentNavigator
                 }
             }
         }).start();
-
+        if (CredentialsUtl.getRealmInstance(this).where(LoginCredentials.class).findAll().size() > 0) {
+            new ClientLoggedUser.Login(CredentialsUtl.toLoginInfo(CredentialsUtl.
+                    getRealmInstance(this)
+                    .where(LoginCredentials.class).findAll().get(0))) {
+                @Override
+                public void onFinish(String id) {
+                    if (!id.equals("-1")) {
+                        ClientLoggedUser.id = id;
+                        navigate(new ContentFragment());
+                    } else {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                navigate(new RegisterFragment());
+                            }
+                        });
+                    }
+                }
+            };
+        }else
         navigate(new RegisterFragment());
     }
 
