@@ -57,7 +57,7 @@ public abstract class CommandRequest {
         }
         catch (NullPointerException ignored)
         {
-
+            throw  new SocketException();
         }
     }
     public void updateConnectionSocket(Socket socket)

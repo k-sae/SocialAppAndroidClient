@@ -28,9 +28,19 @@ public class CommandsExecutor {
         if(instance == null) instance = new CommandsExecutor();
         return instance;
     }
-    public synchronized void add(CommandRequest request)
+    public  void add(CommandRequest request, int index)
+    {
+        commandRequests.add(index, request);
+        start();
+    }
+    public  void add(CommandRequest request)
     {
         commandRequests.add(request);
+        start();
+
+    }
+    private synchronized void start()
+    {
         if(!isRunning) startExecuting();
     }
     private void startExecuting()

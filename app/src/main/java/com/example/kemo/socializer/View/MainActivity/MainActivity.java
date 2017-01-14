@@ -16,11 +16,14 @@ import com.example.kemo.socializer.Control.CredentialsUtl;
 import com.example.kemo.socializer.Control.LoginCredentials;
 import com.example.kemo.socializer.Control.MainServerConnection;
 import com.example.kemo.socializer.R;
+import com.example.kemo.socializer.SocialAppGeneral.LoginInfo;
 import com.example.kemo.socializer.View.FragmentNavigator;
 import com.example.kemo.socializer.View.IntentNavigator;
 import com.example.kemo.socializer.View.ProfileActivity.ProfileActivity;
+import io.realm.Realm;
 
 public class MainActivity extends AppCompatActivity implements FragmentNavigator , IntentNavigator{
+    private static boolean isConnecting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements FragmentNavigator
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        if (isConnecting)   MainActivity.this.findViewById(R.id.connecting_bar).setVisibility(View.VISIBLE);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -39,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements FragmentNavigator
                         public void onDisconnection() {
                             mainServerConnection.endConnection();
                             mainServerConnection.reconnect();
+                            login();
                             CommandsExecutor.getInstance().updateSocket(mainServerConnection.connectionSocket);
                         }
                     });
@@ -49,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements FragmentNavigator
                                 @Override
                                 public void run() {
                                     MainActivity.this.findViewById(R.id.connecting_bar).setVisibility(View.VISIBLE);
+                                    isConnecting = true;
                                 }
                             });
 
@@ -88,27 +93,8 @@ public class MainActivity extends AppCompatActivity implements FragmentNavigator
                 }
             }
         }).start();
-        if (CredentialsUtl.getRealmInstance(this).where(LoginCredentials.class).findAll().size() > 0) {
-            new ClientLoggedUser.Login(CredentialsUtl.toLoginInfo(CredentialsUtl.
-                    getRealmInstance(this)
-                    .where(LoginCredentials.class).findAll().get(0))) {
-                @Override
-                public void onFinish(String id) {
-                    if (!id.equals("-1")) {
-                        ClientLoggedUser.id = id;
-                        navigate(new ContentFragment());
-                    } else {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                navigate(new RegisterFragment());
-                            }
-                        });
-                    }
-                }
-            };
-        }else
-        navigate(new RegisterFragment());
+        navigate(new ContentFragment());
+       login();
     }
 
     @Override
@@ -151,5 +137,29 @@ public class MainActivity extends AppCompatActivity implements FragmentNavigator
         Intent intent = new Intent(this, ProfileActivity.class).putExtra(Intent.EXTRA_TEXT,
                 extra);
         startActivity(intent);
+    }
+    private void login()
+    {
+        Realm realm = CredentialsUtl.getRealmInstance(this);
+        if (realm.where(LoginCredentials.class).findAll().size() > 0) {
+            LoginCredentials loginCredentials = realm.where(LoginCredentials.class).findAll().get(0);
+            ClientLoggedUser.id = loginCredentials.getId();
+            LoginInfo loginInfo = CredentialsUtl.toLoginInfo(loginCredentials);
+            realm.close();
+            new ClientLoggedUser.Login(loginInfo) {
+                @Override
+                public void onFinish(String id) {
+                    if (id.equals("-1")){
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                navigate(new RegisterFragment());
+                            }
+                        });
+                    }
+                }
+            };
+        }else
+            navigate(new RegisterFragment());
     }
 }

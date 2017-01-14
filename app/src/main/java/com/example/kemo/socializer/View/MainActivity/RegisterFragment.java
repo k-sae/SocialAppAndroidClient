@@ -49,12 +49,13 @@ public class RegisterFragment extends Fragment {
                     public void onFinish(String id) {
                         if (!id.equals( "-1"))
                         {
+                            ClientLoggedUser.id = id;
                             Realm realm = CredentialsUtl.getRealmInstance(getActivity());
                             clearRealmItems(realm);
                             realm.beginTransaction();
                             realm.copyToRealm( CredentialsUtl.fromLoginInfo(loginInfo));
                             realm.commitTransaction();
-                            ClientLoggedUser.id = id;
+                            realm.close();
                             ((FragmentNavigator)getActivity()).navigate(new ContentFragment());
                         }
                         else

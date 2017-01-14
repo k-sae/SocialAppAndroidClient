@@ -24,6 +24,7 @@ public class CredentialsUtl
     public static LoginCredentials fromLoginInfo(LoginInfo loginInfo)
     {
         LoginCredentials loginCredentials = new LoginCredentials();
+        loginCredentials.setId(ClientLoggedUser.id);
         loginCredentials.setEmail(loginInfo.getEMAIL());
         loginCredentials.setPassword(loginInfo.getPassword());
         return loginCredentials;

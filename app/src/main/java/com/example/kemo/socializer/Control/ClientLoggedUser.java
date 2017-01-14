@@ -35,7 +35,7 @@ public class ClientLoggedUser {
                     onFinish(cmd.getObjectStr());
                 }
             };
-            CommandsExecutor.getInstance().add(commandRequest);
+            CommandsExecutor.getInstance().add(commandRequest, 0);
         }
         public abstract void onFinish(String id);
     }
