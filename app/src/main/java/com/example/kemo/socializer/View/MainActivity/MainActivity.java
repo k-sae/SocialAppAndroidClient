@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements FragmentNavigator
 
                         @Override
                         public void onConnectionSuccess() {
+                            isConnecting = false;
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
