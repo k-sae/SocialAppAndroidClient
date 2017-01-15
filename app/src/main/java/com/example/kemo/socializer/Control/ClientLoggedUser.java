@@ -10,8 +10,8 @@ import java.util.ArrayList;
  * Created by kemo on 24/12/2016.
  */
 public class ClientLoggedUser {
-    public static final String ADD_FRIEND="add_Friend";
-    private static final String GET_FRIENDS="get_Friends";
+    public static final String ADD_FRIEND = "add_Friend";
+    private static final String GET_FRIENDS = "get_Friends";
     public static final String FRIEND_REQ = "friend_req";
     public static final String FETCH_REQS = "fetch_reqs";
     public static final String GET_RELATION_STATUS = "get_relation_status";
@@ -22,10 +22,9 @@ public class ClientLoggedUser {
     public static final String DEACTIVATE = "deactivate";
     public static final String REACTIVATE = "reactivate";
     public static String id;
-    public static abstract class Login
-    {
-        protected Login(LoginInfo loginInfo)
-        {
+
+    public static abstract class Login {
+        protected Login(LoginInfo loginInfo) {
             Command command = new Command();
             command.setKeyWord(LoginInfo.NEW_LOGIN);
             command.setSharableObject(loginInfo.convertToJsonString());
@@ -37,12 +36,12 @@ public class ClientLoggedUser {
             };
             CommandsExecutor.getInstance().add(commandRequest, 0);
         }
+
         public abstract void onFinish(String id);
     }
-    public static abstract class GetFriends
-    {
-        public GetFriends()
-        {
+
+    public static abstract class GetFriends {
+        public GetFriends() {
             Command command = new Command();
             command.setKeyWord(GET_FRIENDS);
             CommandRequest commandRequest = new CommandRequest(MainServerConnection.mainConnectionSocket, command) {
@@ -54,16 +53,16 @@ public class ClientLoggedUser {
             };
             CommandsExecutor.getInstance().add(commandRequest);
         }
+
         public abstract void onFinish(ArrayList<String> ids);
     }
-    public static abstract class GetFriendInfo
-    {
-        protected GetFriendInfo(String id)
-        {
+
+    public static abstract class GetFriendInfo {
+        protected GetFriendInfo(String id) {
             Command command = new Command();
             command.setKeyWord(UserInfo.PICK_INFO);
             command.setSharableObject(id);
-            CommandRequest commandRequest = new CommandRequest(MainServerConnection.mainConnectionSocket,command) {
+            CommandRequest commandRequest = new CommandRequest(MainServerConnection.mainConnectionSocket, command) {
                 @Override
                 public void analyze(Command cmd) {
                     UserInfo userInfo = UserInfo.fromJsonString(cmd.getObjectStr());
@@ -72,8 +71,10 @@ public class ClientLoggedUser {
             };
             CommandsExecutor.getInstance().add(commandRequest);
         }
+
         public abstract void pick(UserInfo userInfo);
     }
+
     public abstract static class getPosts {
         public getPosts(long numberPost, String id) {
             //TODO
@@ -99,20 +100,21 @@ public class ClientLoggedUser {
             };
             CommandsExecutor.getInstance().add(commandRequest);
         }
+
         public abstract void onFinish(ArrayList<Post> posts);
     }
-    public abstract static class addComment
-    {
+
+    public abstract static class addComment {
         public addComment(AttachmentSender attachmentSender) {
             Command command = new Command();
             command.setKeyWord(AttachmentSender.ATTACHMENT_USER);
             command.setSharableObject(attachmentSender.convertToJsonString());
-            CommandRequest commandRequest = new CommandRequest(MainServerConnection.mainConnectionSocket,command) {
+            CommandRequest commandRequest = new CommandRequest(MainServerConnection.mainConnectionSocket, command) {
                 @Override
                 public void analyze(Command cmd) {
                     if (cmd.getKeyWord().equals(AttachmentSender.ATTACHMENT_USER)) {
-                        Post b= Post.fromJsonString(cmd.getObjectStr());
-                        if(b.getId() !=0) {
+                        Post b = Post.fromJsonString(cmd.getObjectStr());
+                        if (b.getId() != 0) {
                             onFinish(b);
                         }
                     }
@@ -120,52 +122,52 @@ public class ClientLoggedUser {
             };
             CommandsExecutor.getInstance().add(commandRequest);
         }
+
         public abstract void onFinish(Post post);
     }
-    public abstract static class addUserPost
-    {
-        public addUserPost(Post post)
-        {
+
+    public abstract static class addUserPost {
+        public addUserPost(Post post) {
             Command command = new Command();
             command.setKeyWord(Post.SAVE_POST_USER);
             command.setSharableObject(post.convertToJsonString());
-            CommandRequest commandRequest = new CommandRequest(MainServerConnection.mainConnectionSocket,command) {
+            CommandRequest commandRequest = new CommandRequest(MainServerConnection.mainConnectionSocket, command) {
                 @Override
                 public void analyze(Command cmd) {
                     if (cmd.getKeyWord().equals(Post.SAVE_POST_USER)) {
-                      onFinish(cmd.getObjectStr());
+                        onFinish(cmd.getObjectStr());
                     }
                 }
             };
             CommandsExecutor.getInstance().add(commandRequest);
         }
+
         public abstract void onFinish(String result);
     }
-    public static abstract class LoadNotification
-    {
-        public LoadNotification()
-        {
+
+    public static abstract class LoadNotification {
+        public LoadNotification() {
             Command command = new Command();
             command.setKeyWord(Notification.LOAD_NOTI);
 
             CommandRequest commandRequest = new CommandRequest(MainServerConnection.mainConnectionSocket, command) {
                 @Override
                 public void analyze(Command commandFromServer) {
-                    onFinish (SocialArrayList.convertFromJsonString(commandFromServer.getObjectStr()));
+                    onFinish(SocialArrayList.convertFromJsonString(commandFromServer.getObjectStr()));
                 }
             };
             CommandsExecutor.getInstance().add(commandRequest);
         }
-        public abstract void onFinish(SocialArrayList list );
+
+        public abstract void onFinish(SocialArrayList list);
     }
-    public static abstract class GetRelation
-    {
-        public GetRelation(String id)
-        {
+
+    public static abstract class GetRelation {
+        public GetRelation(String id) {
             Command command = new Command();
             command.setKeyWord(LoggedUser.GET_RELATION_STATUS);
             command.setSharableObject(id);
-            CommandRequest commandRequest = new CommandRequest(MainServerConnection.mainConnectionSocket,command) {
+            CommandRequest commandRequest = new CommandRequest(MainServerConnection.mainConnectionSocket, command) {
                 @Override
                 public void analyze(Command cmd) {
                     onFinish(cmd.getObjectStr());
@@ -173,12 +175,12 @@ public class ClientLoggedUser {
             };
             CommandsExecutor.getInstance().add(commandRequest);
         }
+
         public abstract void onFinish(String s);
     }
-    public static abstract class AcceptFriendReq
-    {
-        public AcceptFriendReq(String id)
-        {
+
+    public static abstract class AcceptFriendReq {
+        public AcceptFriendReq(String id) {
             Command command = initialize(id);
             command.setKeyWord(LoggedUser.ACCEPT_FRIEND);
             CommandRequest commandRequest = new CommandRequest(MainServerConnection.mainConnectionSocket, command) {
@@ -189,13 +191,12 @@ public class ClientLoggedUser {
             };
             CommandsExecutor.getInstance().add(commandRequest);
         }
+
         public abstract void onFinish(Command cmd);
     }
 
-    public static abstract class DeclineFriendReq
-    {
-        public DeclineFriendReq(String id)
-        {
+    public static abstract class DeclineFriendReq {
+        public DeclineFriendReq(String id) {
             Command command = initialize(id);
             command.setKeyWord(LoggedUser.DECLINE_FRIEND);
             CommandRequest commandRequest = new CommandRequest(MainServerConnection.mainConnectionSocket, command) {
@@ -206,12 +207,12 @@ public class ClientLoggedUser {
             };
             CommandsExecutor.getInstance().add(commandRequest);
         }
+
         public abstract void onFinish(Command cmd);
     }
-    public static abstract class RemoveFriend
-    {
-        public RemoveFriend(String id)
-        {
+
+    public static abstract class RemoveFriend {
+        public RemoveFriend(String id) {
             Command command = initialize(id);
             command.setKeyWord(LoggedUser.REMOVE_FRIEND);
             CommandRequest commandRequest = new CommandRequest(MainServerConnection.mainConnectionSocket, command) {
@@ -222,12 +223,12 @@ public class ClientLoggedUser {
             };
             CommandsExecutor.getInstance().add(commandRequest);
         }
+
         public abstract void onFinish(Command cmd);
     }
-    public static abstract class CancelFriendReq
-    {
-        public CancelFriendReq(String id)
-        {
+
+    public static abstract class CancelFriendReq {
+        public CancelFriendReq(String id) {
             Command command = initialize(id);
             command.setKeyWord(LoggedUser.CANCEL_FRIEND_REQ);
             CommandRequest commandRequest = new CommandRequest(MainServerConnection.mainConnectionSocket, command) {
@@ -238,12 +239,12 @@ public class ClientLoggedUser {
             };
             CommandsExecutor.getInstance().add(commandRequest);
         }
+
         public abstract void onFinish(Command cmd);
     }
-    public static abstract class addFriend
-    {
-        public addFriend(String id)
-        {
+
+    public static abstract class addFriend {
+        public addFriend(String id) {
             Command command = initialize(id);
             command.setKeyWord(LoggedUser.ADD_FRIEND);
             CommandRequest commandRequest = new CommandRequest(MainServerConnection.mainConnectionSocket, command) {
@@ -254,12 +255,30 @@ public class ClientLoggedUser {
             };
             CommandsExecutor.getInstance().add(commandRequest);
         }
+
         public abstract void onFinish(Command cmd);
     }
-    private static Command initialize(String id)
-    {
+
+    private static Command initialize(String id) {
         Command command = new Command();
         command.setSharableObject(id);
         return command;
+    }
+
+    public static abstract class Search {
+        public Search(String key) {
+            Command command = new Command();
+            command.setKeyWord("Search");
+            command.setSharableObject(key);
+            CommandRequest commandRequest = new CommandRequest(MainServerConnection.mainConnectionSocket, command) {
+                @Override
+                public void analyze(Command cmd) {
+                    SocialArrayList socialArrayList = SocialArrayList.convertFromJsonString(cmd.getObjectStr());
+                    onFinish((ArrayList<String>) socialArrayList.getItems());
+                }
+            };
+            CommandsExecutor.getInstance().add(commandRequest);
+        }
+        public abstract void onFinish(ArrayList<String> items);
     }
 }

@@ -1,11 +1,15 @@
 package com.example.kemo.socializer.View.MainActivity;
 
+import android.database.MatrixCursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
+import android.widget.SimpleCursorAdapter;
 import com.example.kemo.socializer.Connections.ReceiveServerNotification;
 import com.example.kemo.socializer.Connections.ServerNotFound;
 import com.example.kemo.socializer.Connections.TransmissionFailureListener;
@@ -18,14 +22,17 @@ import com.example.kemo.socializer.SocialAppGeneral.SocialArrayList;
 import com.example.kemo.socializer.View.FragmentNavigator;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class ContentFragment extends Fragment implements FragmentNavigator {
+public class ContentFragment extends Fragment implements FragmentNavigator, SearchView.OnQueryTextListener,
+        SearchView.OnSuggestionListener {
     private HomeFragment homeFragment;
     private FriendsFragment friendsFragment;
     private NotificationFragment notificationFragment;
+    private SearchView searchView;
     public ContentFragment() {
     }
 
@@ -54,6 +61,10 @@ public class ContentFragment extends Fragment implements FragmentNavigator {
         view.findViewById(R.id.notification_frag).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {navigate(notificationFragment);}});
+       searchView = (SearchView) view.findViewById(R.id.search_bar_searchView);
+
+        searchView.setOnSuggestionListener(this);
+        searchView.setOnQueryTextListener(this);
         return view;
     }
 //     <T> T myfun(Class<T> classOfT) //important
@@ -131,5 +142,52 @@ public class ContentFragment extends Fragment implements FragmentNavigator {
                 }
             }
         }).start();
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+        if (s.length() > 1)
+        new ClientLoggedUser.Search(s) {
+            @Override
+            public void onFinish(ArrayList<String> items) {
+                final String[] colsNames = {"_id","suggestions"};
+                //to avoid database i replaced cursor with matrixCursor
+                final MatrixCursor matrixCursor = new MatrixCursor(colsNames);
+                int i = 0;
+                for (String id: items
+                     ) {
+                    matrixCursor.addRow(new String[]{Integer.toString(i++), id});
+                }
+                final int[] itemsLayouts = {R.id.search_item};
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        final SimpleCursorAdapter simpleCursorAdapter = new SimpleCursorAdapter(getActivity()
+                                ,R.layout.search_items_suggestions,
+                                matrixCursor,new String[]{colsNames[1]},itemsLayouts);
+                        searchView.setSuggestionsAdapter(simpleCursorAdapter);
+                    }
+                });
+
+            }
+        };
+
+        return true;
+    }
+
+    @Override
+    public boolean onSuggestionSelect(int i) {
+        return false;
+    }
+
+    @Override
+    public boolean onSuggestionClick(int i) {
+        Log.w("hello", "onSuggestionClick: " + searchView.getSuggestionsAdapter().getItem(i));
+        return true;
     }
 }

@@ -26,12 +26,17 @@ public class MainActivity extends AppCompatActivity implements FragmentNavigator
     private static boolean isConnecting;
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        if (isConnecting)   MainActivity.this.findViewById(R.id.connecting_bar).setVisibility(View.VISIBLE);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        if (isConnecting)   MainActivity.this.findViewById(R.id.connecting_bar).setVisibility(View.VISIBLE);
         new Thread(new Runnable() {
             @Override
             public void run() {
