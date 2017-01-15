@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -56,11 +57,11 @@ public class MainActivity extends AppCompatActivity implements FragmentNavigator
                     mainServerConnection.setConnectionListener(new ConnectionListener() {
                         @Override
                         public void onStart() {
+                            isConnecting = true;
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                     MainActivity.this.findViewById(R.id.connecting_bar).setVisibility(View.VISIBLE);
-                                    isConnecting = true;
                                 }
                             });
 
@@ -70,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements FragmentNavigator
                         @Override
                         public void onConnectionSuccess() {
                             isConnecting = false;
+                            Log.w("mainActivity", "onConnectionSuccess:");
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {

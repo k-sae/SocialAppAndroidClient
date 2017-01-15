@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import com.example.kemo.socializer.R;
 import com.example.kemo.socializer.SocialAppGeneral.Notification;
-import com.example.kemo.socializer.View.Packer.Packer;
+import com.example.kemo.socializer.View.Packer.GeneralPacker;
 
 import java.util.ArrayList;
 
@@ -53,7 +53,7 @@ public class NotificationAdapter extends BaseAdapter {
         {
             view = LayoutInflater.from(context).inflate(R.layout.notification_view, viewGroup, false);
         }
-        Packer.from(context).packNotification(view, notifications.get(i));
+        GeneralPacker.from(context).packNotification(view, notifications.get(i));
         return view;
     }
 

@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import com.example.kemo.socializer.R;
-import com.example.kemo.socializer.View.Packer.Packer;
+import com.example.kemo.socializer.View.Packer.GeneralPacker;
 
 import java.util.ArrayList;
 
@@ -48,7 +48,7 @@ public class FriendsAdapter extends BaseAdapter {
         {
             view = LayoutInflater.from(context).inflate(R.layout.friend_view,viewGroup, false);
         }
-        Packer.from(context).packFriendView(view, ids.get(i));
+        GeneralPacker.from(context).packFriendView(view, ids.get(i));
         return view;
     }
 

@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import com.example.kemo.socializer.R;
 import com.example.kemo.socializer.SocialAppGeneral.Comment;
-import com.example.kemo.socializer.View.Packer.Packer;
+import com.example.kemo.socializer.View.Packer.GeneralPacker;
 
 import java.util.ArrayList;
 
@@ -50,7 +50,7 @@ public class CommentsAdapter extends BaseAdapter {
         {
             view =  LayoutInflater.from(context).inflate(R.layout.comment_view,viewGroup, false);
         }
-        Packer.from(context).packCommentView(view, comments.get(i)).showProfileImage(false);
+        GeneralPacker.from(context).packCommentView(view, comments.get(i)).showProfileImage(false);
         return view;
     }
     public ArrayList<Comment> getComments() {

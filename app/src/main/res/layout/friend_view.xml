@@ -2,7 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:padding="10dp"
+>
 
     <ImageView
             android:layout_width="50dp"
@@ -14,6 +16,7 @@
             android:layout_height="50dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
+            android:paddingLeft="10dp"
             android:layout_toRightOf="@+id/friend_view_imageView" android:layout_toEndOf="@+id/friend_view_imageView">
         <TextView
                 android:layout_width="wrap_content"

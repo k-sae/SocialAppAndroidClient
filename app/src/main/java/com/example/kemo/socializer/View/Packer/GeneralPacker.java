@@ -17,7 +17,7 @@ import java.util.ArrayList;
 /**
  * Created by kemo on 26/12/2016.
  */
-public class Packer {
+public class GeneralPacker {
     final String ADD_FRIEND = "Add friend";
     final String ACCEPT = "Accept";
     final String DECLINE = "Decline";
@@ -25,28 +25,22 @@ public class Packer {
     final String CANCEL_REQUEST = "Cancel request";
     private Context context;
 
-    public Packer showProfileImage(boolean showProfileImage) {
+    public GeneralPacker showProfileImage(boolean showProfileImage) {
         this.showProfileImage = showProfileImage;
         return this;
     }
 
     private boolean showProfileImage;
-    private Packer(Context context)
+    private GeneralPacker(Context context)
     {
         showProfileImage = true;
         this.context = context;
     }
-    public Packer packImageView(ImageView imageView, String id)
+    public static GeneralPacker from(Context context)
     {
-        //TODO
-        imageView.setImageResource(R.drawable.ic_friends);
-        return this;
+        return new GeneralPacker(context);
     }
-    public static Packer from(Context context)
-    {
-        return new Packer(context);
-    }
-    public  Packer packPostView(final View postViewer, final Post post)
+    public GeneralPacker packPostView(final View postViewer, final Post post)
     {
         ((TextView) postViewer.findViewById(R.id.post_content)).setText(post.getContent());
         packFriendView(postViewer, post.getOwnerId() + "");
@@ -62,13 +56,13 @@ public class Packer {
 
         return this;
     }
-    public Packer packCommentView(View commentView, Comment comment)
+    public GeneralPacker packCommentView(View commentView, Comment comment)
     {
         ((TextView) commentView.findViewById(R.id.comment_content)).setText(comment.getCommentcontent());
         packFriendView(commentView, comment.getOwnerID() + "");
         return this;
     }
-    public Packer packFriendView(final View friendView, final String id)
+    public GeneralPacker packFriendView(final View friendView, final String id)
     {
         final TextView textView = (TextView) friendView.findViewById(R.id.friend_view_textView);
         textView.setOnClickListener(new View.OnClickListener() {
@@ -92,7 +86,7 @@ public class Packer {
         };
         return this;
     }
-    public Packer packUserInfo(View infoView, UserInfo userInfo, String id)
+    public GeneralPacker packUserInfo(View infoView, UserInfo userInfo, String id)
     {
         ((TextView)infoView.findViewById(R.id.user_name)).setText(userInfo.getFullName());
         ((TextView)infoView.findViewById(R.id.user_gender)).setText(userInfo.getGender());
@@ -196,13 +190,13 @@ public class Packer {
     private void setProfileImage(ImageView imageView, String id)
     {
         if (showProfileImage)
-            packImageView(imageView,id);
+           ImageViewPacker.from(context).withID(id).to(imageView).pack();
         else {
             imageView.getLayoutParams().width = 0;
         }
 
     }
-    public Packer packPostWriter(final View postWriter, final StackAdapter stackAdapter)
+    public GeneralPacker packPostWriter(final View postWriter, final StackAdapter stackAdapter)
     {
         postWriter.findViewById(R.id.post_button).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -222,7 +216,7 @@ public class Packer {
 
         return this;
     }
-    public Packer packNotification(View view, Notification notification)
+    public GeneralPacker packNotification(View view, Notification notification)
     {
         ((TextView)view.findViewById(R.id.notification_details)).setText(String.format("%s%s",
                 notification.getKeyword().toString().toLowerCase(),

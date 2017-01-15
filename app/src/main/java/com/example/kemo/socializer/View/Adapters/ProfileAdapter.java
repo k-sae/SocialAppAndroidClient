@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
 import com.example.kemo.socializer.R;
 import com.example.kemo.socializer.SocialAppGeneral.Post;
 import com.example.kemo.socializer.SocialAppGeneral.UserInfo;
-import com.example.kemo.socializer.View.Packer.Packer;
+import com.example.kemo.socializer.View.Packer.GeneralPacker;
 
 import java.util.ArrayList;
 
@@ -87,21 +87,21 @@ public class ProfileAdapter extends BaseAdapter implements StackAdapter {
             //from writer
             if (view.findViewById(R.id.post_button) == null)
             view = LayoutInflater.from(context).inflate(R.layout.post_writer, viewGroup, false);
-            Packer.from(context).packPostWriter(view,this);
+            GeneralPacker.from(context).packPostWriter(view,this);
         }
         else if(o instanceof Post)
         {
             //from post viewer
             if (view.findViewById(R.id.post_content) == null)
             view = LayoutInflater.from(context).inflate(R.layout.postview, viewGroup,false);
-            Packer.from(context).packPostView(view, (Post) o);
+            GeneralPacker.from(context).packPostView(view, (Post) o);
         }
         else if(o instanceof UserInfo)
         {
             //from info viewer
             if (view.findViewById(R.id.profile_pic) == null)
             view = LayoutInflater.from(context).inflate(R.layout.info_view, viewGroup,false);
-            Packer.from(context).packUserInfo(view, (UserInfo)o, userId);
+            GeneralPacker.from(context).packUserInfo(view, (UserInfo)o, userId);
         }
         return  view;
     }
