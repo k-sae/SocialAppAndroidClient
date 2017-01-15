@@ -29,7 +29,8 @@ public class MainActivity extends AppCompatActivity implements FragmentNavigator
     @Override
     protected void onStart() {
         super.onStart();
-        if (isConnecting)   MainActivity.this.findViewById(R.id.connecting_bar).setVisibility(View.VISIBLE);
+        if (isConnecting)  findViewById(R.id.connecting_bar).setVisibility(View.VISIBLE);
+        else findViewById(R.id.connecting_bar).setVisibility(View.GONE);
     }
 
     @Override
