@@ -22,6 +22,7 @@ import com.example.kemo.socializer.View.IntentNavigator;
 import com.example.kemo.socializer.View.ProfileActivity.ProfileActivity;
 import io.realm.Realm;
 
+@SuppressWarnings("ConstantConditions")
 public class MainActivity extends AppCompatActivity implements FragmentNavigator , IntentNavigator{
     private static boolean isConnecting;
 

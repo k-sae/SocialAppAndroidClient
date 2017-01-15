@@ -268,7 +268,7 @@ public class ClientLoggedUser {
     public static abstract class Search {
         public Search(String key) {
             Command command = new Command();
-            command.setKeyWord("Search");
+            command.setKeyWord(LoggedUser.SEARCH_WITH_DETAILS);
             command.setSharableObject(key);
             CommandRequest commandRequest = new CommandRequest(MainServerConnection.mainConnectionSocket, command) {
                 @Override

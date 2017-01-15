@@ -4,7 +4,6 @@ import android.database.MatrixCursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +15,12 @@ import com.example.kemo.socializer.Connections.TransmissionFailureListener;
 import com.example.kemo.socializer.Connections.UtilityConnection;
 import com.example.kemo.socializer.Control.ClientLoggedUser;
 import com.example.kemo.socializer.R;
+import com.example.kemo.socializer.SocialAppGeneral.AppUser;
 import com.example.kemo.socializer.SocialAppGeneral.Command;
 import com.example.kemo.socializer.SocialAppGeneral.Notification;
 import com.example.kemo.socializer.SocialAppGeneral.SocialArrayList;
 import com.example.kemo.socializer.View.FragmentNavigator;
+import com.example.kemo.socializer.View.IntentNavigator;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -158,10 +159,10 @@ public class ContentFragment extends Fragment implements FragmentNavigator, Sear
                 final String[] colsNames = {"_id","suggestions"};
                 //to avoid database i replaced cursor with matrixCursor
                 final MatrixCursor matrixCursor = new MatrixCursor(colsNames);
-                int i = 0;
-                for (String id: items
+                for (String item: items
                      ) {
-                    matrixCursor.addRow(new String[]{Integer.toString(i++), id});
+                    AppUser appUser = AppUser.fromJsonString(item);
+                    matrixCursor.addRow(new String[]{appUser.getID(),appUser.getUserInfo().getFullName()});
                 }
                 final int[] itemsLayouts = {R.id.search_item};
                 getActivity().runOnUiThread(new Runnable() {
@@ -187,7 +188,8 @@ public class ContentFragment extends Fragment implements FragmentNavigator, Sear
 
     @Override
     public boolean onSuggestionClick(int i) {
-        Log.w("hello", "onSuggestionClick: " + searchView.getSuggestionsAdapter().getItem(i));
+       MatrixCursor matrixCursor = (MatrixCursor) searchView.getSuggestionsAdapter().getItem(i);
+        ((IntentNavigator)getActivity()).navigate(matrixCursor.getString(0));
         return true;
     }
 }
