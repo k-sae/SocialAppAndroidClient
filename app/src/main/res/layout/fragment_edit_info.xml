@@ -1,0 +1,74 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                tools:showIn="@layout/activity_edit_info"
+                tools:context="com.example.kemo.socializer.View.ProfileActivity.editInfoFragment">
+
+
+    <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/profile_pic_edit" android:layout_alignParentTop="true" android:layout_centerHorizontal="true"
+            android:contentDescription="@string/profile_image"/>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/linearLayout3"
+            android:layout_alignLeft="@+id/profile_pic_edit" android:layout_alignStart="@+id/profile_pic_edit">
+    </LinearLayout>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/change"
+            android:id="@+id/change_profileImage" android:layout_below="@+id/profile_pic_edit" android:layout_alignLeft="@+id/profile_pic_edit"
+            android:layout_alignStart="@+id/profile_pic_edit" android:layout_alignRight="@+id/profile_pic_edit"
+            android:layout_alignEnd="@+id/profile_pic_edit"/>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/save"
+            android:id="@+id/save_button"
+            android:layout_below="@+id/relativeLayout" android:layout_toLeftOf="@+id/cancel_button"
+            android:layout_toStartOf="@+id/cancel_button"/>
+    <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel"
+            android:id="@+id/cancel_button"
+            android:layout_alignTop="@+id/save_button" android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_below="@+id/change_profileImage"
+            android:layout_centerHorizontal="true" android:id="@+id/relativeLayout">
+        <!--ignore it for now -->
+        <!-- reason: for the future so upon adding more info to edit i wont have to rebuild the layout-->
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/linearLayout2"
+                android:layout_margin="5dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" tools:ignore="UselessParent">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/name"
+                    android:id="@+id/tx1"/>
+            <EditText
+                    android:layout_margin="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:ems="10"
+                    android:id="@+id/edit_UserName"/>
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

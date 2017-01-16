@@ -19,7 +19,7 @@ public class CommentsActivity extends AppCompatActivity implements IntentNavigat
     }
 
     @Override
-    public void navigate(String extra) {
+    public void navigate(String extra, Class<?> cls) {
         Intent intent = new Intent(this, ProfileActivity.class).putExtra(Intent.EXTRA_TEXT,
                 extra);
         startActivity(intent);

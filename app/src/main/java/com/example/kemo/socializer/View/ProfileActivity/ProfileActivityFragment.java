@@ -33,8 +33,6 @@ public class ProfileActivityFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         ListView listView = (ListView) view.findViewById(R.id.profile_ListView);
         listView.setAdapter(profileAdapter);
-        //TODO
-
         return view;
     }
 
@@ -46,17 +44,13 @@ public class ProfileActivityFragment extends Fragment {
     private void fetchPosts(String id)
     {
         //TODO
-
-        if (id.equals(ClientLoggedUser.id)) {
-            profileAdapter.getObjects().add(null);
-        }
         new ClientLoggedUser.getPosts(1, id) {
             @Override
-            public void onFinish(ArrayList<Post> posts) {
-                profileAdapter.getObjects().addAll(posts);
+            public void onFinish(final ArrayList<Post> posts) {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        profileAdapter.getObjects().addAll(posts);
                         profileAdapter.notifyDataSetChanged();
                     }
                 });
@@ -66,16 +60,19 @@ public class ProfileActivityFragment extends Fragment {
     private void getProfileInfo()
     {
         Intent intent = getActivity().getIntent();
-        final String id = intent.getStringExtra(Intent.EXTRA_TEXT);
+         final String id = intent.getStringExtra(Intent.EXTRA_TEXT);
         profileAdapter.setUserId(id);
         new ClientLoggedUser.GetFriendInfo(id + "") {
             @Override
             public void pick(final UserInfo userInfo) {
                 profileAdapter.getObjects().clear();
-                profileAdapter.getObjects().add(userInfo);
                 new Handler(getActivity().getMainLooper()).post(new Runnable() {
                     @Override
                     public void run() {
+                        profileAdapter.getObjects().add(userInfo);
+                        if (id.equals(ClientLoggedUser.id)) {
+                            profileAdapter.getObjects().add(null);
+                        }
                         profileAdapter.notifyDataSetChanged();
                     }
                 });

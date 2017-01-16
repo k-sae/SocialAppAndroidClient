@@ -50,6 +50,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/edit"
             android:id="@+id/edit_userInfo"
+            android:visibility="gone"
             android:layout_below="@+id/user_birthDate" android:layout_centerHorizontal="true"/>
     <Spinner
             android:layout_width="wrap_content"

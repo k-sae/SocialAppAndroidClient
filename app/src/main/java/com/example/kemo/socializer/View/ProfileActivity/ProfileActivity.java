@@ -2,11 +2,8 @@ package com.example.kemo.socializer.View.ProfileActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import com.example.kemo.socializer.R;
 import com.example.kemo.socializer.View.IntentNavigator;
 
@@ -18,21 +15,13 @@ public class ProfileActivity extends AppCompatActivity implements IntentNavigato
         setContentView(R.layout.activity_profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
     @Override
-    public void navigate(String extra) {
-        Intent intent = new Intent(this, ProfileActivity.class).putExtra(Intent.EXTRA_TEXT,
+    public void navigate(String extra, Class<?> cls) {
+        Intent intent = new Intent(this, cls).putExtra(Intent.EXTRA_TEXT,
                 extra);
         startActivity(intent);
+        if (cls == ProfileActivity.class)
         finish();
     }
 }

@@ -21,6 +21,7 @@ import com.example.kemo.socializer.SocialAppGeneral.Notification;
 import com.example.kemo.socializer.SocialAppGeneral.SocialArrayList;
 import com.example.kemo.socializer.View.FragmentNavigator;
 import com.example.kemo.socializer.View.IntentNavigator;
+import com.example.kemo.socializer.View.ProfileActivity.ProfileActivity;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -189,7 +190,7 @@ public class ContentFragment extends Fragment implements FragmentNavigator, Sear
     @Override
     public boolean onSuggestionClick(int i) {
        MatrixCursor matrixCursor = (MatrixCursor) searchView.getSuggestionsAdapter().getItem(i);
-        ((IntentNavigator)getActivity()).navigate(matrixCursor.getString(0));
+        ((IntentNavigator)getActivity()).navigate(matrixCursor.getString(0), ProfileActivity.class);
         return true;
     }
 }

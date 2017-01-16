@@ -2,8 +2,10 @@ package com.example.kemo.socializer.Control;
 
 import com.example.kemo.socializer.Connections.CommandRequest;
 import com.example.kemo.socializer.Connections.CommandsExecutor;
+import com.example.kemo.socializer.Connections.ServerConnection;
 import com.example.kemo.socializer.SocialAppGeneral.*;
 
+import java.io.*;
 import java.util.ArrayList;
 
 /**
@@ -280,5 +282,60 @@ public class ClientLoggedUser {
             CommandsExecutor.getInstance().add(commandRequest);
         }
         public abstract void onFinish(ArrayList<String> items);
+    }
+    public static abstract class UploadImage {
+        public UploadImage(final byte[] bytes) {
+            final String UPLOADIMAGE = "upload_image";
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        //TODO: #Config
+                        new ServerConnection("192.168.43.195", 6010) {
+                            @Override
+                            public void startConnection() {
+                                try {
+                                    DataOutputStream dataOutputStream = new DataOutputStream(connectionSocket.getOutputStream());
+                                    Command command = new Command();
+                                    command.setKeyWord(UPLOADIMAGE);
+                                    dataOutputStream.writeUTF(command.toString());
+                                    connectionSocket.setSoTimeout(100000);
+                                    DataInputStream dataInputStream = new DataInputStream(connectionSocket.getInputStream());
+                                    command = Command.fromString(dataInputStream.readUTF());
+                                    String id = command != null ? command.getObjectStr() : null;
+                                    //noinspection ResultOfMethodCallIgnored
+                                    ObjectOutputStream objectOutputStream = new ObjectOutputStream(connectionSocket.getOutputStream());
+                                    objectOutputStream.writeObject(bytes);
+                                    connectionSocket.close();
+                                    onFinish(id);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        };
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+        }
+        public abstract void onFinish(String id);
+    }
+
+    public static abstract class UpdateInfo {
+        public UpdateInfo(UserInfo userInfo)
+        {
+            Command command = new Command();
+            command.setKeyWord(UserInfo.EDIT_INFO);
+            command.setSharableObject(userInfo);
+            CommandRequest commandRequest = new CommandRequest(MainServerConnection.mainConnectionSocket,command) {
+                @Override
+                public void analyze(Command cmd) {
+                    onFinish(cmd.getObjectStr());
+                }
+            };
+            CommandsExecutor.getInstance().add(commandRequest);
+        }
+        public abstract void onFinish(String s);
     }
 }

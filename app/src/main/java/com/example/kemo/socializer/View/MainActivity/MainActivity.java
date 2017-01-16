@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements FragmentNavigator
 
     }
     @Override
-    public void navigate(String extra) {
+    public void navigate(String extra, Class<?> cls) {
         Intent intent = new Intent(this, ProfileActivity.class).putExtra(Intent.EXTRA_TEXT,
                 extra);
         startActivity(intent);

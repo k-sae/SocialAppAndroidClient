@@ -11,6 +11,8 @@ import com.example.kemo.socializer.SocialAppGeneral.*;
 import com.example.kemo.socializer.View.Adapters.StackAdapter;
 import com.example.kemo.socializer.View.CommentsActivity.CommentsActivity;
 import com.example.kemo.socializer.View.IntentNavigator;
+import com.example.kemo.socializer.View.ProfileActivity.ProfileActivity;
+import com.example.kemo.socializer.View.ProfileActivity.editInfo;
 
 import java.util.ArrayList;
 
@@ -68,7 +70,7 @@ public class GeneralPacker {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((IntentNavigator)context).navigate(id + "");
+                ((IntentNavigator)context).navigate(id + "", ProfileActivity.class);
             }
         });
         new ClientLoggedUser.GetFriendInfo(id + "") {
@@ -86,12 +88,23 @@ public class GeneralPacker {
         };
         return this;
     }
-    public GeneralPacker packUserInfo(View infoView, UserInfo userInfo, String id)
+    public GeneralPacker packUserInfo(View infoView, UserInfo userInfo, final String id)
     {
         ((TextView)infoView.findViewById(R.id.user_name)).setText(userInfo.getFullName());
         ((TextView)infoView.findViewById(R.id.user_gender)).setText(userInfo.getGender());
         ((TextView)infoView.findViewById(R.id.user_birthDate)).setText(userInfo.getBirthDate());
         setProfileImage(((ImageView)infoView.findViewById(R.id.profile_pic)), userInfo.getProfileImage());
+        if (id.equals(ClientLoggedUser.id))
+        {
+            TextView textView = (TextView) infoView.findViewById(R.id.edit_userInfo);
+            textView.setVisibility(View.VISIBLE);
+            textView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ((IntentNavigator)context).navigate(id,editInfo.class);
+                }
+            });
+        }
         setRelationSpinner(infoView, id);
         return this;
     }
