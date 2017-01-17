@@ -33,5 +33,9 @@
     <string name="change">change</string>
     <string name="profile_image">profile Image</string>
     <string name="save">Save</string>
-    <string name="cancel">cancel</string>
+    <string name="cancel">Cancel</string>
+    <!--fragments names -->
+    <string name="home_frag">Home</string>
+    <string name="notification_frag">Notification</string>
+    <string name="friendReq_frag">Requests</string>
 </resources>

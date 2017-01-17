@@ -19,7 +19,7 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FriendsFragment extends Fragment {
+public class FriendsFragment extends MainActivityFragment {
 
     private FriendsAdapter friendsAdapter;
     public FriendsFragment() {

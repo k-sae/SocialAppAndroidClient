@@ -4,6 +4,7 @@ import android.database.MatrixCursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,7 @@ import com.example.kemo.socializer.SocialAppGeneral.AppUser;
 import com.example.kemo.socializer.SocialAppGeneral.Command;
 import com.example.kemo.socializer.SocialAppGeneral.Notification;
 import com.example.kemo.socializer.SocialAppGeneral.SocialArrayList;
-import com.example.kemo.socializer.View.FragmentNavigator;
+import com.example.kemo.socializer.View.Adapters.FragmentAdapter;
 import com.example.kemo.socializer.View.IntentNavigator;
 import com.example.kemo.socializer.View.ProfileActivity.ProfileActivity;
 
@@ -29,7 +30,7 @@ import java.util.ArrayList;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class ContentFragment extends Fragment implements FragmentNavigator, SearchView.OnQueryTextListener,
+public class ContentFragment extends Fragment implements SearchView.OnQueryTextListener,
         SearchView.OnSuggestionListener {
     private HomeFragment homeFragment;
     private FriendsFragment friendsFragment;
@@ -44,6 +45,9 @@ public class ContentFragment extends Fragment implements FragmentNavigator, Sear
         homeFragment = new HomeFragment();
         friendsFragment = new FriendsFragment();
         notificationFragment = new NotificationFragment();
+        homeFragment.setFragTitle(getString(R.string.home_frag));
+        friendsFragment.setFragTitle(getString(R.string.friendReq_frag));
+        notificationFragment.setFragTitle(getString(R.string.notification_frag));
         startNotifications();
     }
 
@@ -51,42 +55,18 @@ public class ContentFragment extends Fragment implements FragmentNavigator, Sear
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_content, container, false);
-        view.findViewById(R.id.home_frag).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                navigate(homeFragment);
-            }
-        });
-        view.findViewById(R.id.friends_frag).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {navigate(friendsFragment);}});
-        view.findViewById(R.id.notification_frag).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {navigate(notificationFragment);}});
        searchView = (SearchView) view.findViewById(R.id.search_bar_searchView);
-
+        ViewPager viewPager = (ViewPager) view.findViewById(R.id.main_ViewPager);
+        FragmentAdapter fragmentAdapter = new FragmentAdapter(getActivity().getSupportFragmentManager());
+        fragmentAdapter.getFragments().add(homeFragment);
+        fragmentAdapter.getFragments().add(friendsFragment);
+        fragmentAdapter.getFragments().add(notificationFragment);
+        viewPager.setAdapter(fragmentAdapter);
         searchView.setOnSuggestionListener(this);
         searchView.setOnQueryTextListener(this);
         return view;
     }
-//     <T> T myfun(Class<T> classOfT) //important
-//    {
-//        Object o;
-//       return Primitives.wrap(classOfT).cast(o);
-//    }
-    @Override
-    public void navigate(final Fragment fragment) {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.sub_container,
-                                fragment)
-                        .commit();
-            }
-        });
 
-    }
     private void startNotifications()
     {
         final int PORT_NO = 6100;
@@ -145,7 +125,7 @@ public class ContentFragment extends Fragment implements FragmentNavigator, Sear
             }
         }).start();
     }
-
+    //search area
     @Override
     public boolean onQueryTextSubmit(String s) {
         return false;

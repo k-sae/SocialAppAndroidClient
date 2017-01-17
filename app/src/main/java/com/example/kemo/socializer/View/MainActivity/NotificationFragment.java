@@ -15,7 +15,7 @@ import com.example.kemo.socializer.View.Adapters.NotificationAdapter;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NotificationFragment extends Fragment {
+public class NotificationFragment extends MainActivityFragment {
     private NotificationAdapter notificationAdapter;
     public NotificationFragment() {
         // Required empty public constructor

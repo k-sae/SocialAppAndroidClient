@@ -12,7 +12,7 @@ import com.example.kemo.socializer.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends MainActivityFragment {
 
 
     public HomeFragment() {
