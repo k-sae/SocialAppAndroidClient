@@ -16,10 +16,7 @@ import com.example.kemo.socializer.Connections.TransmissionFailureListener;
 import com.example.kemo.socializer.Connections.UtilityConnection;
 import com.example.kemo.socializer.Control.ClientLoggedUser;
 import com.example.kemo.socializer.R;
-import com.example.kemo.socializer.SocialAppGeneral.AppUser;
-import com.example.kemo.socializer.SocialAppGeneral.Command;
-import com.example.kemo.socializer.SocialAppGeneral.Notification;
-import com.example.kemo.socializer.SocialAppGeneral.SocialArrayList;
+import com.example.kemo.socializer.SocialAppGeneral.*;
 import com.example.kemo.socializer.View.Adapters.FragmentAdapter;
 import com.example.kemo.socializer.View.IntentNavigator;
 import com.example.kemo.socializer.View.ProfileActivity.ProfileActivity;
@@ -33,7 +30,7 @@ import java.util.ArrayList;
 public class ContentFragment extends Fragment implements SearchView.OnQueryTextListener,
         SearchView.OnSuggestionListener {
     private HomeFragment homeFragment;
-    private FriendsFragment friendsFragment;
+    private FriendRequestFragment friendRequestFragment;
     private NotificationFragment notificationFragment;
     private SearchView searchView;
     public ContentFragment() {
@@ -43,10 +40,10 @@ public class ContentFragment extends Fragment implements SearchView.OnQueryTextL
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         homeFragment = new HomeFragment();
-        friendsFragment = new FriendsFragment();
+        friendRequestFragment = new FriendRequestFragment();
         notificationFragment = new NotificationFragment();
         homeFragment.setFragTitle(getString(R.string.home_frag));
-        friendsFragment.setFragTitle(getString(R.string.friendReq_frag));
+        friendRequestFragment.setFragTitle(getString(R.string.friendReq_frag));
         notificationFragment.setFragTitle(getString(R.string.notification_frag));
         startNotifications();
     }
@@ -59,7 +56,7 @@ public class ContentFragment extends Fragment implements SearchView.OnQueryTextL
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.main_ViewPager);
         FragmentAdapter fragmentAdapter = new FragmentAdapter(getActivity().getSupportFragmentManager());
         fragmentAdapter.getFragments().add(homeFragment);
-        fragmentAdapter.getFragments().add(friendsFragment);
+        fragmentAdapter.getFragments().add(friendRequestFragment);
         fragmentAdapter.getFragments().add(notificationFragment);
         viewPager.setAdapter(fragmentAdapter);
         searchView.setOnSuggestionListener(this);
@@ -98,6 +95,10 @@ public class ContentFragment extends Fragment implements SearchView.OnQueryTextL
                                 if (command.getKeyWord().equals(Notification.NEW_NOTIFICATION))
                                 {
                                     notificationFragment.addNotification(Notification.fromJsonString(command.getObjectStr()));
+                                }
+                                else if (command.getKeyWord().equals(LoggedUser.FRIEND_REQ))
+                                {
+                                    friendRequestFragment.addRequest(command.getObjectStr());
                                 }
                             }
                         };

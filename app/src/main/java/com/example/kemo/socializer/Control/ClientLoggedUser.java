@@ -338,4 +338,20 @@ public class ClientLoggedUser {
         }
         public abstract void onFinish(String s);
     }
+    public static abstract class GetFriendReq
+    {
+        public GetFriendReq()
+        {
+            Command command = new Command();
+            command.setKeyWord(LoggedUser.FETCH_REQS);
+            CommandRequest commandRequest = new CommandRequest(MainServerConnection.mainConnectionSocket,command) {
+                @Override
+                public void analyze(Command cmd) {
+                    onFinish((ArrayList<String>) SocialArrayList.convertFromJsonString(cmd.getObjectStr()).getItems());
+                }
+            };
+            CommandsExecutor.getInstance().add(commandRequest);
+        }
+        public abstract void onFinish(ArrayList<String> requests);
+    }
 }

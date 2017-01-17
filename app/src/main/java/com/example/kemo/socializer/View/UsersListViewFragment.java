@@ -1,4 +1,4 @@
-package com.example.kemo.socializer.View.MainActivity;
+package com.example.kemo.socializer.View;
 
 
 import android.content.Intent;
@@ -9,23 +9,30 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import com.example.kemo.socializer.Control.ClientLoggedUser;
 import com.example.kemo.socializer.R;
 import com.example.kemo.socializer.View.Adapters.FriendsAdapter;
+import com.example.kemo.socializer.View.MainActivity.MainActivityFragment;
 import com.example.kemo.socializer.View.ProfileActivity.ProfileActivity;
-
-import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FriendsFragment extends MainActivityFragment {
+public abstract class UsersListViewFragment extends MainActivityFragment {
+
+    public FriendsAdapter getFriendsAdapter() {
+        return friendsAdapter;
+    }
 
     private FriendsAdapter friendsAdapter;
-    public FriendsFragment() {
+    public UsersListViewFragment() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        fetchData();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,22 +51,21 @@ public class FriendsFragment extends MainActivityFragment {
                 startActivity(intent);
             }
         });
-        fetchData();
         return view;
     }
-    private void fetchData()
-    {
-        new ClientLoggedUser.GetFriends() {
-            @Override
-            public void onFinish(ArrayList<String> ids) {
-                friendsAdapter.setIds(ids);
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        friendsAdapter.notifyDataSetChanged();
-                    }
-                });
-            }
-        };
-    }
+    protected abstract void fetchData();
+//    {
+//        new ClientLoggedUser.GetFriends() {
+//            @Override
+//            public void onFinish(ArrayList<String> ids) {
+//                friendsAdapter.setIds(ids);
+//                getActivity().runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        friendsAdapter.notifyDataSetChanged();
+//                    }
+//                });
+//            }
+//        };
+//    }
 }

@@ -36,6 +36,6 @@
     <string name="cancel">Cancel</string>
     <!--fragments names -->
     <string name="home_frag">Home</string>
-    <string name="notification_frag">Notification</string>
+    <string name="notification_frag">Notifications</string>
     <string name="friendReq_frag">Requests</string>
 </resources>
