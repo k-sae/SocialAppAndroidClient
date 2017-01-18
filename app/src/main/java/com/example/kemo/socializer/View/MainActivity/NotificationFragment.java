@@ -20,21 +20,23 @@ public class NotificationFragment extends MainActivityFragment {
     private NotificationAdapter notificationAdapter;
     public NotificationFragment() {
         // Required empty public constructor
-        notificationAdapter = new NotificationAdapter();
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        new ClientLoggedUser.LoadNotification() {
-            @Override
-            public void onFinish(SocialArrayList list) {
-                for ( String o : list.getItems()
-                        ) {
-                    addNotification(Notification.fromJsonString(o));
+        if (notificationAdapter == null) {
+            notificationAdapter = new NotificationAdapter();
+            new ClientLoggedUser.LoadNotification() {
+                @Override
+                public void onFinish(SocialArrayList list) {
+                    for (String o : list.getItems()
+                            ) {
+                        addNotification(Notification.fromJsonString(o));
+                    }
                 }
-            }
-        };
+            };
+        }
     }
 
     @Override
@@ -42,6 +44,7 @@ public class NotificationFragment extends MainActivityFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_notification, container, false);
+        onStart();
         notificationAdapter.setContext(getActivity());
         ListView listView = (ListView) view.findViewById(R.id.notification_listView);
         listView.setAdapter(notificationAdapter);
