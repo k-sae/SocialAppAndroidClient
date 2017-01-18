@@ -12,6 +12,7 @@ import com.example.kemo.socializer.R;
 import com.example.kemo.socializer.SocialAppGeneral.Notification;
 import com.example.kemo.socializer.SocialAppGeneral.SocialArrayList;
 import com.example.kemo.socializer.View.Adapters.NotificationAdapter;
+import com.example.kemo.socializer.View.MainActivityFragment;
 
 /**
  * A simple {@link Fragment} subclass.

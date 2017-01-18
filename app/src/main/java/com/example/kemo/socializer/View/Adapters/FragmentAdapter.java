@@ -3,7 +3,7 @@ package com.example.kemo.socializer.View.Adapters;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import com.example.kemo.socializer.View.MainActivity.MainActivityFragment;
+import com.example.kemo.socializer.View.MainActivityFragment;
 
 import java.util.ArrayList;
 

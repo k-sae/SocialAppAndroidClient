@@ -2,33 +2,49 @@ package com.example.kemo.socializer.View.MainActivity;
 
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.example.kemo.socializer.R;
+import com.example.kemo.socializer.Control.ClientLoggedUser;
+import com.example.kemo.socializer.SocialAppGeneral.Post;
+import com.example.kemo.socializer.View.PostsListViewFragment;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends MainActivityFragment {
-
-
-    public HomeFragment() {
-        // Required empty public constructor
+public class HomeFragment extends PostsListViewFragment {
+    @Override//empty method
+    // bec i don't need the original method
+    protected void fetchData() {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = super.onCreateView(inflater, container, savedInstanceState);
+        fetchPosts();
+        return view;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+    public void onStart() {
+        super.onStart();
     }
-
+    private void fetchPosts()
+    {
+        new ClientLoggedUser.GetHomePosts(1) {
+            @Override
+            public void onFinish(final ArrayList<Post> posts) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        profileAdapter.getObjects().addAll(posts);
+                        profileAdapter.notifyDataSetChanged();
+                    }
+                });
+            }
+        };
+    }
 }

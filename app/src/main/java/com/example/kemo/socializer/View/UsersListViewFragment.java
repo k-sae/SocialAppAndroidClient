@@ -11,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import com.example.kemo.socializer.R;
 import com.example.kemo.socializer.View.Adapters.FriendsAdapter;
-import com.example.kemo.socializer.View.MainActivity.MainActivityFragment;
 import com.example.kemo.socializer.View.ProfileActivity.ProfileActivity;
 
 /**
@@ -54,18 +53,4 @@ public abstract class UsersListViewFragment extends MainActivityFragment {
         return view;
     }
     protected abstract void fetchData();
-//    {
-//        new ClientLoggedUser.GetFriends() {
-//            @Override
-//            public void onFinish(ArrayList<String> ids) {
-//                friendsAdapter.setIds(ids);
-//                getActivity().runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        friendsAdapter.notifyDataSetChanged();
-//                    }
-//                });
-//            }
-//        };
-//    }
 }

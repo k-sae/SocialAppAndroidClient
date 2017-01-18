@@ -77,8 +77,8 @@ public class ClientLoggedUser {
         public abstract void pick(UserInfo userInfo);
     }
 
-    public abstract static class getPosts {
-        public getPosts(long numberPost, String id) {
+    public abstract static class getProfilePosts {
+        public getProfilePosts(long numberPost, String id) {
             //TODO
             //Rename it
             PostSender postSender = new PostSender(numberPost, Long.parseLong(id));
@@ -353,5 +353,30 @@ public class ClientLoggedUser {
             CommandsExecutor.getInstance().add(commandRequest);
         }
         public abstract void onFinish(ArrayList<String> requests);
+    }
+    public abstract static class GetHomePosts {
+        public GetHomePosts(long numberOfPostsPerUser){
+            Command command = new Command();
+            command.setKeyWord(Post.LOAD_POST_HOME);
+            PostSender postSender =new PostSender(numberOfPostsPerUser);
+            command.setSharableObject(postSender.convertToJsonString());
+            CommandRequest commandRequest = new CommandRequest(MainServerConnection.mainConnectionSocket, command) {
+                @Override
+                public void analyze(Command cmd) {
+                    if (cmd.getKeyWord().equals(Post.LOAD_POST_HOME)) {
+                        SocialArrayList list=SocialArrayList.convertFromJsonString(cmd.getObjectStr());
+                        ArrayList<Post> posts = new ArrayList<>();
+                        for(int i=0;i<list.getItems().size();i++) {
+
+                            posts.add(Post.fromJsonString(list.getItems().get(i)));
+                        }
+                        onFinish( posts);
+                    }
+                }
+
+            };
+            CommandsExecutor.getInstance().add(commandRequest);
+        }
+        public abstract void onFinish(ArrayList<Post> posts);
     }
 }

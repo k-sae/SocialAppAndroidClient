@@ -1,4 +1,4 @@
-package com.example.kemo.socializer.View.MainActivity;
+package com.example.kemo.socializer.View;
 
 import android.support.v4.app.Fragment;
 
