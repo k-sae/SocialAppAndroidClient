@@ -6,11 +6,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.example.kemo.socializer.Control.ClientLoggedUser;
 import com.example.kemo.socializer.R;
 import com.example.kemo.socializer.View.FragmentNavigator;
 import com.example.kemo.socializer.View.IntentNavigator;
+import com.example.kemo.socializer.View.MainActivity.RegisterContent.AuthenticationFragment;
 import com.example.kemo.socializer.View.MainActivityFragment;
 import com.example.kemo.socializer.View.ProfileActivity.ProfileActivity;
 
@@ -39,7 +39,7 @@ public class ManagementFragment extends MainActivityFragment {
         view.findViewById(R.id.logout_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((FragmentNavigator)getActivity()).navigate(new RegisterFragment());
+                ((FragmentNavigator)getActivity()).navigate(new AuthenticationFragment());
             }
         });
         return view;

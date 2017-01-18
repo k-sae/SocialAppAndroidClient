@@ -1,8 +1,7 @@
-package com.example.kemo.socializer.View.MainActivity;
+package com.example.kemo.socializer.View.MainActivity.RegisterContent;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,15 +14,17 @@ import com.example.kemo.socializer.Control.LoginCredentials;
 import com.example.kemo.socializer.R;
 import com.example.kemo.socializer.SocialAppGeneral.LoginInfo;
 import com.example.kemo.socializer.View.FragmentNavigator;
+import com.example.kemo.socializer.View.MainActivity.ContentFragment;
+import com.example.kemo.socializer.View.MainActivityFragment;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class RegisterFragment extends Fragment {
+public class LoginFragment extends MainActivityFragment {
 
-    public RegisterFragment() {
+    public LoginFragment() {
     }
 
     @Override
@@ -34,7 +35,7 @@ public class RegisterFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_register, container, false);
+        View view = inflater.inflate(R.layout.fragment_login, container, false);
         final EditText emailTextEdit = (EditText) view.findViewById(R.id.email_editText);
         final EditText passwordTextEdit = (EditText) view.findViewById(R.id.password_editText);
         final Button loginButton = (Button) view.findViewById(R.id.login_button);
@@ -62,7 +63,7 @@ public class RegisterFragment extends Fragment {
                         { getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(RegisterFragment.this.getActivity(), "wrong mail or password", Toast.LENGTH_LONG).show();
+                                Toast.makeText(LoginFragment.this.getActivity(), "wrong mail or password", Toast.LENGTH_LONG).show();
                             }
                         });
                         }

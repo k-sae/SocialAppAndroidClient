@@ -20,6 +20,7 @@ import com.example.kemo.socializer.R;
 import com.example.kemo.socializer.SocialAppGeneral.LoginInfo;
 import com.example.kemo.socializer.View.FragmentNavigator;
 import com.example.kemo.socializer.View.IntentNavigator;
+import com.example.kemo.socializer.View.MainActivity.RegisterContent.AuthenticationFragment;
 import com.example.kemo.socializer.View.ProfileActivity.ProfileActivity;
 import io.realm.Realm;
 
@@ -163,13 +164,13 @@ public class MainActivity extends AppCompatActivity implements FragmentNavigator
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                navigate(new RegisterFragment());
+                                navigate(new AuthenticationFragment());
                             }
                         });
                     }
                 }
             };
         }else
-            navigate(new RegisterFragment());
+            navigate(new AuthenticationFragment());
     }
 }
