@@ -31,7 +31,7 @@
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-                android:name=".View.ProfileActivity.editInfo"
+                android:name=".View.ProfileActivity.EditInfoActivity"
                 android:label="@string/title_activity_edit_info"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>

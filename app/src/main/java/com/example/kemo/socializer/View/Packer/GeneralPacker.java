@@ -12,7 +12,7 @@ import com.example.kemo.socializer.View.Adapters.StackAdapter;
 import com.example.kemo.socializer.View.CommentsActivity.CommentsActivity;
 import com.example.kemo.socializer.View.IntentNavigator;
 import com.example.kemo.socializer.View.ProfileActivity.ProfileActivity;
-import com.example.kemo.socializer.View.ProfileActivity.editInfo;
+import com.example.kemo.socializer.View.ProfileActivity.EditInfoActivity;
 
 import java.util.ArrayList;
 
@@ -101,7 +101,7 @@ public class GeneralPacker {
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ((IntentNavigator)context).navigate(id,editInfo.class);
+                    ((IntentNavigator)context).navigate(id,EditInfoActivity.class);
                 }
             });
         }

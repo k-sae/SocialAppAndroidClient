@@ -33,6 +33,7 @@ public class ContentFragment extends Fragment implements SearchView.OnQueryTextL
     private FriendRequestFragment friendRequestFragment;
     private NotificationFragment notificationFragment;
     private SearchView searchView;
+    private ManagementFragment managementFragment;
     public ContentFragment() {
     }
 
@@ -42,9 +43,11 @@ public class ContentFragment extends Fragment implements SearchView.OnQueryTextL
         homeFragment = new HomeFragment();
         friendRequestFragment = new FriendRequestFragment();
         notificationFragment = new NotificationFragment();
+        managementFragment = new ManagementFragment();
         homeFragment.setFragTitle(getString(R.string.home_frag));
         friendRequestFragment.setFragTitle(getString(R.string.friendReq_frag));
         notificationFragment.setFragTitle(getString(R.string.notification_frag));
+        managementFragment.setFragTitle(getString(R.string.manage));
         startNotifications();
     }
 
@@ -58,6 +61,7 @@ public class ContentFragment extends Fragment implements SearchView.OnQueryTextL
         fragmentAdapter.getFragments().add(homeFragment);
         fragmentAdapter.getFragments().add(friendRequestFragment);
         fragmentAdapter.getFragments().add(notificationFragment);
+        fragmentAdapter.getFragments().add(managementFragment);
         viewPager.setAdapter(fragmentAdapter);
         searchView.setOnSuggestionListener(this);
         searchView.setOnQueryTextListener(this);

@@ -1,0 +1,35 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              tools:context=".View.MainActivity.ManagementFragment" android:orientation="vertical">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <LinearLayout
+            style="@style/management_item" android:id="@+id/management_Profile">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/my_profile"
+        />
+    </LinearLayout>
+    <LinearLayout
+            style="@style/management_item">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/friends"
+        />
+    </LinearLayout>
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <Button
+                style="@style/black_button"
+                android:text="@string/logout"
+                android:id="@+id/logout_button" android:layout_alignParentTop="true" android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
+</LinearLayout>

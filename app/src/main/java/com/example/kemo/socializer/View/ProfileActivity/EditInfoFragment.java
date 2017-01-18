@@ -22,13 +22,13 @@ import java.io.InputStream;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class editInfoFragment extends Fragment {
+public class EditInfoFragment extends Fragment {
     private EditText editUserInfo;
     private InputStream profileImageStream;
     private ImageView imageView;
     private byte[] profileImageByteArray;
     String s;
-    public editInfoFragment() {
+    public EditInfoFragment() {
     }
 
     @Override
