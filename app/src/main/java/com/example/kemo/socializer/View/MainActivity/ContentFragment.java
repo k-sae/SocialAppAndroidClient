@@ -78,15 +78,7 @@ public class ContentFragment extends Fragment implements SearchView.OnQueryTextL
                                     @Override
                                     public void startConnection() {
                                         super.startConnection();
-                                        new ClientLoggedUser.LoadNotification() {
-                                            @Override
-                                            public void onFinish(SocialArrayList list) {
-                                                for ( String o : list.getItems()
-                                                        ) {
-                                                    notificationFragment.addNotification(Notification.fromJsonString(o));
-                                                }
-                                            }
-                                        };
+                                       //removed fetching notifications from here bec its seems to introduce bugs
                                     }
                                 }
                                         .getConnectionSocket()) {

@@ -6,10 +6,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.ListView;
+import com.example.kemo.socializer.Control.ClientLoggedUser;
 import com.example.kemo.socializer.R;
 import com.example.kemo.socializer.SocialAppGeneral.Notification;
+import com.example.kemo.socializer.SocialAppGeneral.SocialArrayList;
 import com.example.kemo.socializer.View.Adapters.NotificationAdapter;
 
 /**
@@ -22,6 +23,19 @@ public class NotificationFragment extends MainActivityFragment {
         notificationAdapter = new NotificationAdapter();
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        new ClientLoggedUser.LoadNotification() {
+            @Override
+            public void onFinish(SocialArrayList list) {
+                for ( String o : list.getItems()
+                        ) {
+                    addNotification(Notification.fromJsonString(o));
+                }
+            }
+        };
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,19 +47,21 @@ public class NotificationFragment extends MainActivityFragment {
         listView.setAdapter(notificationAdapter);
         return view;
     }
-    void addNotification(Notification... notifications)
+    void addNotification(final Notification notification)
     {
-        for (Notification notification: notifications
-             ) {
-            notificationAdapter.getNotifications().add(0,notification);
-        }
-        if (!(getActivity() == null))
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                notificationAdapter.notifyDataSetChanged();
-            }
-        });
 
+        if (!(getActivity() == null)) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    notificationAdapter.getNotifications().add(0, notification);
+                    notificationAdapter.notifyDataSetChanged();
+                }
+            });
+        }
+        else
+        {
+            notificationAdapter.getNotifications().add(0, notification);
+        }
     }
 }
