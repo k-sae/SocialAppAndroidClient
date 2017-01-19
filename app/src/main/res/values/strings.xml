@@ -20,7 +20,7 @@
     <string name="title_activity_comments">CommentsActivity</string>
     <string name="write_a_comment">write a comment</string>
     <string name="send_button">send button</string>
-    <string name="name">Name:</string>
+    <string name="name">Name</string>
     <string name="gender">Gender:</string>
     <string name="birth_date">BirthDate:</string>
     <string name="profile_pic">profile pic</string>
@@ -41,4 +41,7 @@
     <string name="manage">Manage</string>
     <string name="my_profile">My Profile</string>
     <string name="logout">Logout</string>
+    <string name="register">Register</string>
+    <string name="ex_programmers4fun_gmail_com">ex: programmers4Fun@gmail.com</string>
+    <string name="ex_11_11_1997">ex: 11/11/1997</string>
 </resources>

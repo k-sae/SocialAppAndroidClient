@@ -20,7 +20,7 @@ import com.example.kemo.socializer.R;
 import com.example.kemo.socializer.SocialAppGeneral.LoginInfo;
 import com.example.kemo.socializer.View.FragmentNavigator;
 import com.example.kemo.socializer.View.IntentNavigator;
-import com.example.kemo.socializer.View.MainActivity.RegisterContent.AuthenticationFragment;
+import com.example.kemo.socializer.View.MainActivity.Authentication.AuthenticationFragment;
 import com.example.kemo.socializer.View.ProfileActivity.ProfileActivity;
 import io.realm.Realm;
 

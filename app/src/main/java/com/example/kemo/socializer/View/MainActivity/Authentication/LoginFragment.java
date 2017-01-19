@@ -1,4 +1,4 @@
-package com.example.kemo.socializer.View.MainActivity.RegisterContent;
+package com.example.kemo.socializer.View.MainActivity.Authentication;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

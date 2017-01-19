@@ -1,4 +1,4 @@
-package com.example.kemo.socializer.View.MainActivity.RegisterContent;
+package com.example.kemo.socializer.View.MainActivity.Authentication;
 
 
 import android.os.Bundle;
@@ -30,8 +30,11 @@ public class AuthenticationFragment extends Fragment {
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.authentication_ViewPager);
         FragmentAdapter fragmentAdapter = new FragmentAdapter(getActivity().getSupportFragmentManager());
         LoginFragment loginFragment = new LoginFragment();
+        RegisterFragment registerFragment = new RegisterFragment();
+        registerFragment.setFragTitle(getString(R.string.register));
         loginFragment.setFragTitle(getString( R.string.login));
         fragmentAdapter.getFragments().add(loginFragment);
+        fragmentAdapter.getFragments().add(registerFragment);
         viewPager.setAdapter(fragmentAdapter);
         return view;
     }

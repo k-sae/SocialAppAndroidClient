@@ -379,4 +379,28 @@ public class ClientLoggedUser {
         }
         public abstract void onFinish(ArrayList<Post> posts);
     }
+    public abstract static class Register
+    {
+        Register(RegisterInfo registerInfo)
+        {
+            Command command = new Command();
+            command.setKeyWord(RegisterInfo.KEYWORD);
+            command.setSharableObject(registerInfo);
+            CommandRequest commandRequest = new CommandRequest(MainServerConnection.mainConnectionSocket, command) {
+                @Override
+                public void analyze(Command commandFromServer) {
+
+                    if(commandFromServer.getObjectStr().equals("true"))
+                        onServerReply("Thanks for signing up!");
+                    else
+                    {
+                        onServerReply("please use a valid unique mail");
+                    }
+                }
+            };
+            CommandsExecutor.getInstance().add(commandRequest);
+
+        }
+        public abstract void onServerReply(String reply);
+    }
 }
