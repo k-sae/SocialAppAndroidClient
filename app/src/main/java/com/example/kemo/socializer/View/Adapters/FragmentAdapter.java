@@ -2,7 +2,7 @@ package com.example.kemo.socializer.View.Adapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import com.example.kemo.socializer.View.MainActivityFragment;
 
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * Created by kemo on 07/01/2017.
  */
-public class FragmentAdapter extends FragmentPagerAdapter {
+public class FragmentAdapter extends FragmentStatePagerAdapter {
     public ArrayList<MainActivityFragment> getFragments() {
         return fragments;
     }
