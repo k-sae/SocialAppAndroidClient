@@ -27,7 +27,6 @@ public class ProfileActivity extends AppCompatActivity implements IntentNavigato
         if (cls == ProfileActivity.class)
         finish();
     }
-
     @Override
     public void navigate(final Fragment fragment) {
         runOnUiThread(new Runnable() {

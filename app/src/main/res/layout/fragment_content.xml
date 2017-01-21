@@ -4,17 +4,21 @@
               android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
               tools:context=".View.MainActivity.ContentFragment" android:weightSum="1"
               android:baselineAligned="false" android:orientation="vertical">
-<LinearLayout android:layout_width="match_parent" android:paddingLeft="@dimen/fab_margin" android:paddingRight="@dimen/fab_margin" android:layout_height="wrap_content" android:orientation="horizontal"
-              android:baselineAligned="false" android:focusableInTouchMode="true"
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal"
+                  android:baselineAligned="false" android:focusableInTouchMode="true"
 >
     <SearchView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:queryHint="search for friends"
             android:id="@+id/search_bar_searchView"
             android:iconifiedByDefault="false"
     />
-</LinearLayout>
+        <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinner" android:layout_gravity="end"/>
+    </LinearLayout>
     <android.support.v4.view.ViewPager android:layout_width="match_parent"
                                        android:layout_height="match_parent"
     android:id="@+id/main_ViewPager">
