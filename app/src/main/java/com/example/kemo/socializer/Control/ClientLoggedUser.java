@@ -381,7 +381,7 @@ public class ClientLoggedUser {
     }
     public abstract static class Register
     {
-        Register(RegisterInfo registerInfo)
+        public Register(RegisterInfo registerInfo)
         {
             Command command = new Command();
             command.setKeyWord(RegisterInfo.KEYWORD);

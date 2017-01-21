@@ -7,7 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
+import com.example.kemo.socializer.Control.ClientLoggedUser;
 import com.example.kemo.socializer.R;
+import com.example.kemo.socializer.SocialAppGeneral.LoginInfo;
+import com.example.kemo.socializer.SocialAppGeneral.RegisterInfo;
+import com.example.kemo.socializer.SocialAppGeneral.UserInfo;
 import com.example.kemo.socializer.View.MainActivityFragment;
 
 import java.text.SimpleDateFormat;
@@ -41,7 +46,33 @@ public class RegisterFragment extends MainActivityFragment implements DatePicker
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
-
+        final EditText name = (EditText) view.findViewById(R.id.register_name_editText);
+        final EditText email = (EditText) view.findViewById(R.id.register_mail_editText);
+        final EditText password = (EditText) view.findViewById(R.id.register_password_editText);
+        view.findViewById(R.id.register_register_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LoginInfo loginInfo = new LoginInfo();
+                loginInfo.setEmail(email.getText().toString());
+                loginInfo.setPassword(password.getText().toString());
+                RegisterInfo registerInfo = new RegisterInfo();
+                registerInfo.setLoginInfo(loginInfo);
+                UserInfo userInfo= new UserInfo();
+                userInfo.setFullName(name.getText().toString());
+                registerInfo.setUserInfo(userInfo);
+                new ClientLoggedUser.Register(registerInfo) {
+                    @Override
+                    public void onServerReply(final String reply) {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(getActivity(),reply,Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                };
+            }
+        });
         return view;
     }
 

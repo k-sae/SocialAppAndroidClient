@@ -65,7 +65,7 @@
     <Button
             style="@style/black_button"
             android:text="@string/register"
-            android:id="@+id/button" android:layout_gravity="center_horizontal"/>
+            android:id="@+id/register_register_button" android:layout_gravity="center_horizontal"/>
 
 </LinearLayout>
 </ScrollView>
