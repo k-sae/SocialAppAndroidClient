@@ -67,7 +67,7 @@ public class ContentFragment extends Fragment implements SearchView.OnQueryTextL
         searchView.setOnQueryTextListener(this);
         ArrayList<String> strings = new ArrayList<>();
         strings.add("Choose Action");
-        strings.add(getString(R.string.friend));
+        strings.add(getString(R.string.profile));
         strings.add(getString(R.string.logout));
         final ArrayAdapter<String> arrayAdapter = new  ArrayAdapter<>(getActivity(),
                 R.layout.spinner_item,strings
