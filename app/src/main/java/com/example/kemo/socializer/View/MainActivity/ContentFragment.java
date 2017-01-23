@@ -8,17 +8,21 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SearchView;
-import android.widget.SimpleCursorAdapter;
+import android.widget.*;
 import com.example.kemo.socializer.Connections.ReceiveServerNotification;
 import com.example.kemo.socializer.Connections.ServerNotFound;
 import com.example.kemo.socializer.Connections.TransmissionFailureListener;
 import com.example.kemo.socializer.Connections.UtilityConnection;
 import com.example.kemo.socializer.Control.ClientLoggedUser;
 import com.example.kemo.socializer.R;
-import com.example.kemo.socializer.SocialAppGeneral.*;
+import com.example.kemo.socializer.SocialAppGeneral.AppUser;
+import com.example.kemo.socializer.SocialAppGeneral.Command;
+import com.example.kemo.socializer.SocialAppGeneral.LoggedUser;
+import com.example.kemo.socializer.SocialAppGeneral.Notification;
 import com.example.kemo.socializer.View.Adapters.FragmentAdapter;
+import com.example.kemo.socializer.View.FragmentNavigator;
 import com.example.kemo.socializer.View.IntentNavigator;
+import com.example.kemo.socializer.View.MainActivity.Authentication.AuthenticationFragment;
 import com.example.kemo.socializer.View.ProfileActivity.ProfileActivity;
 
 import java.io.IOException;
@@ -33,7 +37,6 @@ public class ContentFragment extends Fragment implements SearchView.OnQueryTextL
     private FriendRequestFragment friendRequestFragment;
     private NotificationFragment notificationFragment;
     private SearchView searchView;
-    private ManagementFragment managementFragment;
     public ContentFragment() {
     }
 
@@ -43,11 +46,9 @@ public class ContentFragment extends Fragment implements SearchView.OnQueryTextL
         homeFragment = new HomeFragment();
         friendRequestFragment = new FriendRequestFragment();
         notificationFragment = new NotificationFragment();
-        managementFragment = new ManagementFragment();
         homeFragment.setFragTitle(getString(R.string.home_frag));
         friendRequestFragment.setFragTitle(getString(R.string.friendReq_frag));
         notificationFragment.setFragTitle(getString(R.string.notification_frag));
-        managementFragment.setFragTitle(getString(R.string.manage));
         startNotifications();
     }
 
@@ -61,10 +62,34 @@ public class ContentFragment extends Fragment implements SearchView.OnQueryTextL
         fragmentAdapter.getFragments().add(homeFragment);
         fragmentAdapter.getFragments().add(friendRequestFragment);
         fragmentAdapter.getFragments().add(notificationFragment);
-        fragmentAdapter.getFragments().add(managementFragment);
         viewPager.setAdapter(fragmentAdapter);
         searchView.setOnSuggestionListener(this);
         searchView.setOnQueryTextListener(this);
+        ArrayList<String> strings = new ArrayList<>();
+        strings.add("Choose Action");
+        strings.add(getString(R.string.friend));
+        strings.add(getString(R.string.logout));
+        final ArrayAdapter<String> arrayAdapter = new  ArrayAdapter<>(getActivity(),
+                R.layout.spinner_item,strings
+               );
+       Spinner spinner  = (Spinner) view.findViewById(R.id.management_spinner);
+        spinner.setAdapter(arrayAdapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (i == 1) {
+                    ((IntentNavigator) getActivity()).navigate(ClientLoggedUser.id, ProfileActivity.class);
+                } else if (i == 2) {
+                    ((FragmentNavigator) getActivity()).navigate(new AuthenticationFragment());
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
         return view;
     }
 
