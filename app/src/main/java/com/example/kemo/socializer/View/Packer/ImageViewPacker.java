@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.widget.ImageView;
 import com.example.kemo.socializer.Connections.ServerConnection;
+import com.example.kemo.socializer.NetworkConfiguration;
 import com.example.kemo.socializer.R;
 import com.example.kemo.socializer.SocialAppGeneral.Command;
 
@@ -50,8 +51,8 @@ public class ImageViewPacker  {
             public void run() {
                 super.run();
                 try {
-                    //TODO: #Config
-                    new ServerConnection("192.168.43.195", 6010) {
+                    //enter the ip address of the remote sever
+                    new ServerConnection(NetworkConfiguration.ipAddress, 6010) {
                         @Override
                         public void startConnection() {
                             try {

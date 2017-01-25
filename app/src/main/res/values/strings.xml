@@ -24,7 +24,7 @@
     <string name="gender">Gender:</string>
     <string name="birth_date">BirthDate:</string>
     <string name="profile_pic">profile pic</string>
-    <string name="edit">edit</string>
+    <string name="edit">Edit</string>
     <string name="notification_constant_message">" on your post"</string>
     <string name="connecting">Connecting…
     </string>

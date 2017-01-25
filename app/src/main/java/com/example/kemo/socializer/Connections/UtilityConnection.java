@@ -1,5 +1,7 @@
 package com.example.kemo.socializer.Connections;
 
+import com.example.kemo.socializer.NetworkConfiguration;
+
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
@@ -9,8 +11,8 @@ import java.net.Socket;
  */
 public class UtilityConnection extends ServerConnection {
     public UtilityConnection(String id, int port) throws ServerNotFound {
-        //TODO #config
-        super("192.168.43.195",port);
+        //enter the ip address of the remote sever
+        super(NetworkConfiguration.ipAddress,port);
         sendId(id);
     }
     public UtilityConnection(String senderId, int port, String receiverId) throws ServerNotFound

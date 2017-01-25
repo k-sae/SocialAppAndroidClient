@@ -3,6 +3,7 @@ package com.example.kemo.socializer.Control;
 import com.example.kemo.socializer.Connections.CommandRequest;
 import com.example.kemo.socializer.Connections.CommandsExecutor;
 import com.example.kemo.socializer.Connections.ServerConnection;
+import com.example.kemo.socializer.NetworkConfiguration;
 import com.example.kemo.socializer.SocialAppGeneral.*;
 
 import java.io.*;
@@ -290,8 +291,8 @@ public class ClientLoggedUser {
                 @Override
                 public void run() {
                     try {
-                        //TODO: #Config
-                        new ServerConnection("192.168.43.195", 6010) {
+                        //enter the ip address of the remote sever
+                        new ServerConnection(NetworkConfiguration.ipAddress, 6010) {
                             @Override
                             public void startConnection() {
                                 try {

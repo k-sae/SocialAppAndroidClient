@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import com.example.kemo.socializer.Control.ClientLoggedUser;
 import com.example.kemo.socializer.R;
+import com.example.kemo.socializer.SocialAppGeneral.UserInfo;
 import com.example.kemo.socializer.View.FragmentNavigator;
 import com.example.kemo.socializer.View.IntentNavigator;
 
@@ -15,8 +17,22 @@ public class ProfileActivity extends AppCompatActivity implements IntentNavigato
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        new ClientLoggedUser.GetFriendInfo(getIntent().getStringExtra(Intent.EXTRA_TEXT)) {
+            @Override
+            public void pick(final UserInfo userInfo) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        assert toolbar != null;
+                        toolbar.setTitle(userInfo.getFullName());
+                    }
+                });
+
+            }
+        };
+
         navigate(new ProfileFragment());
     }
     @Override

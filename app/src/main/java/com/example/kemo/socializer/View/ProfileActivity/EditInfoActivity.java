@@ -12,7 +12,8 @@ public class EditInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_info);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("hello :D");
+        assert toolbar != null;
+        toolbar.setTitle(getString(R.string.edit));
         setSupportActionBar(toolbar);
     }
 

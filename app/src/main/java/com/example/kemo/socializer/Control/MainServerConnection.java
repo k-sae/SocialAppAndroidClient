@@ -2,6 +2,7 @@ package com.example.kemo.socializer.Control;
 
 import com.example.kemo.socializer.Connections.ServerConnection;
 import com.example.kemo.socializer.Connections.ServerNotFound;
+import com.example.kemo.socializer.NetworkConfiguration;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -39,7 +40,8 @@ public class MainServerConnection extends ServerConnection {
     }
     private void start() throws ServerNotFound {
         //here i will check for user info and choose whether to continue the connection or to end it
-        super.connect("192.168.43.195",6000);
+        //enter the ip address of the remote sever
+        super.connect(NetworkConfiguration.ipAddress,6000);
     }
     public void endConnection()
     {
