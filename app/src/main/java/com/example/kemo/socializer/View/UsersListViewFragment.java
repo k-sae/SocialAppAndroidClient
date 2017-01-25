@@ -45,9 +45,11 @@ public abstract class UsersListViewFragment extends MainActivityFragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getActivity(),ProfileActivity.class).putExtra(Intent.EXTRA_TEXT,
-                        friendsAdapter.getIds().get(i));
-                startActivity(intent);
+                if (friendsAdapter.getItem(i) instanceof String) {
+                    Intent intent = new Intent(getActivity(), ProfileActivity.class).putExtra(Intent.EXTRA_TEXT,
+                            (String) friendsAdapter.getItems().get(i));
+                    startActivity(intent);
+                }
             }
         });
         return view;

@@ -17,6 +17,10 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_margin">10dp</item>
+        <item name="android:textColorHint">#fff</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:background">@color/editTextBackground</item>
     </style>
     <style name="ImageButtons">
         <item name="android:layout_height">35dp</item>
@@ -48,7 +52,7 @@
         <item name="android:paddingRight">25dp</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">#212121</item>
+        <item name="android:background">#607190</item>
         <item name="android:textColor">#ffffff</item>
     </style>
     <style name="register_page_linearLayout_vertical">

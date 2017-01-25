@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
+                android:layout_width="match_parent" android:padding="@dimen/listViewPadding"
                 android:layout_height="match_parent">
-
+<RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/primaryForGround">
     <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -58,4 +58,5 @@
             android:id="@+id/relation_spinner" android:layout_alignParentTop="true" android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" android:layout_toRightOf="@+id/profile_pic"
             android:layout_toEndOf="@+id/profile_pic"/>
+</RelativeLayout>
 </RelativeLayout>

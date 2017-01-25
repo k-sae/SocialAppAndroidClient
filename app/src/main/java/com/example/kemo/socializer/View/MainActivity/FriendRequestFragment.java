@@ -1,6 +1,8 @@
 package com.example.kemo.socializer.View.MainActivity;
 
 import com.example.kemo.socializer.Control.ClientLoggedUser;
+import com.example.kemo.socializer.R;
+import com.example.kemo.socializer.View.Separator;
 import com.example.kemo.socializer.View.UsersListViewFragment;
 
 import java.util.ArrayList;
@@ -18,15 +20,40 @@ public class FriendRequestFragment extends UsersListViewFragment {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            getFriendsAdapter().getIds().clear();
-                            getFriendsAdapter().getIds().addAll(requests);
+                            getFriendsAdapter().getItems().clear();
+                            getFriendsAdapter().getItems().add(new Separator(getString(R.string.requests)));
+                            getFriendsAdapter().getItems().addAll(requests);
+                            getFriendsAdapter().getItems().add(new Separator(getString(R.string.friends)));
+                            getFriendsAdapter().notifyDataSetChanged();
+                            getFriends();
+                        }
+                    });
+                }
+                else {
+                    getFriendsAdapter().getItems().clear();
+                    getFriendsAdapter().getItems().add(new Separator(getString(R.string.requests)));
+                    getFriendsAdapter().getItems().addAll(requests);
+                    getFriendsAdapter().getItems().add(new Separator(getString(R.string.friends)));
+                }
+            }
+        };
+    }
+    protected void getFriends()
+    {
+        new ClientLoggedUser.GetFriends() {
+            @Override
+            public void onFinish(final ArrayList<String> ids) {
+                if (getActivity()!= null) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            getFriendsAdapter().getItems().addAll(ids);
                             getFriendsAdapter().notifyDataSetChanged();
                         }
                     });
                 }
                 else {
-                    getFriendsAdapter().getIds().clear();
-                    getFriendsAdapter().getIds().addAll(requests);
+                    getFriendsAdapter().getItems().addAll(ids);
                 }
             }
         };
@@ -37,11 +64,11 @@ public class FriendRequestFragment extends UsersListViewFragment {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    getFriendsAdapter().getIds().add(id);
+                    getFriendsAdapter().getItems().add(id);
                     getFriendsAdapter().notifyDataSetChanged();
                 }
             });
         }
-        else getFriendsAdapter().getIds().add(id);
+        else getFriendsAdapter().getItems().add(id);
     }
 }

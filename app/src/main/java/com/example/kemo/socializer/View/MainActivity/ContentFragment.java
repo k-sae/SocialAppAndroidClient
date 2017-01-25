@@ -72,7 +72,7 @@ public class ContentFragment extends Fragment implements SearchView.OnQueryTextL
         final ArrayAdapter<String> arrayAdapter = new  ArrayAdapter<>(getActivity(),
                 R.layout.spinner_item,strings
                );
-       Spinner spinner  = (Spinner) view.findViewById(R.id.management_spinner);
+       final Spinner spinner  = (Spinner) view.findViewById(R.id.management_spinner);
         spinner.setAdapter(arrayAdapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -82,6 +82,7 @@ public class ContentFragment extends Fragment implements SearchView.OnQueryTextL
                 } else if (i == 2) {
                     ((FragmentNavigator) getActivity()).navigate(new AuthenticationFragment());
                 }
+                spinner.setSelection(0);
             }
 
             @Override

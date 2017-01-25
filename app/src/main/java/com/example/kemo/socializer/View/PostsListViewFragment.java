@@ -22,7 +22,7 @@ public abstract class PostsListViewFragment extends MainActivityFragment {
                              Bundle savedInstanceState) {
         profileAdapter = new ProfileAdapter(getActivity());
 
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_posts_listview, container, false);
         ListView listView = (ListView) view.findViewById(R.id.profile_ListView);
         listView.setAdapter(profileAdapter);
         return view;

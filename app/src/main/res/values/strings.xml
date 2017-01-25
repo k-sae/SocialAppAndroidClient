@@ -44,4 +44,6 @@
     <string name="register">Register</string>
     <string name="ex_programmers4fun_gmail_com">ex: programmers4Fun@gmail.com</string>
     <string name="ex_11_11_1997">ex: 11/11/1997</string>
+    <string name="requests">Requests:</string>
+    <string name="socializer">Socializer</string>
 </resources>
