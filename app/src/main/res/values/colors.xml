@@ -3,5 +3,8 @@
     <color name="colorPrimary">#111</color>
     <color name="colorPrimaryDark">#000</color>
     <color name="colorAccent">#0182b9</color>
+    <color name="upVote">#0182b9</color>
+    <color name="DownVote">#e6000f</color>
+    <color name="neutral">#000000</color>
     <color name="colorPrimaryBackground">#bbb</color>
 </resources>

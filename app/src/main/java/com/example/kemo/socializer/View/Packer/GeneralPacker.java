@@ -11,8 +11,8 @@ import com.example.kemo.socializer.SocialAppGeneral.*;
 import com.example.kemo.socializer.View.Adapters.StackAdapter;
 import com.example.kemo.socializer.View.CommentsActivity.CommentsActivity;
 import com.example.kemo.socializer.View.IntentNavigator;
-import com.example.kemo.socializer.View.ProfileActivity.ProfileActivity;
 import com.example.kemo.socializer.View.ProfileActivity.EditInfoActivity;
+import com.example.kemo.socializer.View.ProfileActivity.ProfileActivity;
 
 import java.util.ArrayList;
 
@@ -55,8 +55,60 @@ public class GeneralPacker {
                 context.startActivity(intent);
             }
         });
-
+        final Button button  = (Button) postViewer.findViewById(R.id.thump_up_button);
+        setButtonStyle(button, post);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isVotedUp(post)) {
+                    new ClientLoggedUser.AddThump(Relations.DELETE, post) {
+                        @Override
+                        public void onFinish(final Post p) {
+                            post.setLike(p.getLike());
+                            new Handler(context.getMainLooper()).post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    setButtonStyle(button, p);
+                                }
+                            });
+                        }
+                    };
+                }
+                else {
+                    new ClientLoggedUser.AddThump(Relations.THUMP_UP, post) {
+                        @Override
+                        public void onFinish(final Post p) {
+                            post.setLike(p.getLike());
+                            new Handler(context.getMainLooper()).post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    setButtonStyle(button, p);
+                                }
+                            });
+                        }
+                    };
+                }
+            }
+        });
         return this;
+    }
+    private void setButtonStyle(Button button, Post post)
+    {
+        if (isVotedUp(post)) {
+            button.setTextColor(context.getResources().getColor(R.color.colorAccent));
+        }
+        else
+        {
+            button.setTextColor(context.getResources().getColor(R.color.neutral));
+        }
+    }
+    private boolean isVotedUp(Post post)
+    {
+        for (Like like: post.getLike()
+             ) {
+            if ((like.getOwnerID() + "").equals(ClientLoggedUser.id)) return true;
+        }
+        return false;
     }
     public GeneralPacker packCommentView(View commentView, Comment comment)
     {

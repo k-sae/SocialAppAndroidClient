@@ -403,4 +403,30 @@ public class ClientLoggedUser {
         }
         public abstract void onServerReply(String reply);
     }
+    public abstract static class AddThump
+    {
+        public AddThump(Relations i, Post post)
+        {
+            Like like = new Like();
+            like.setLike(i);
+            like.setOwnerID(Long.parseLong(id));
+            AttachmentSender sender=new AttachmentSender(like,post.getPostPos(),post.getId());
+            Command command = new Command();
+            command.setKeyWord(AttachmentSender.ATTACHMENT_USER);
+            command.setSharableObject(sender.convertToJsonString());
+            CommandRequest commandRequest = new CommandRequest(MainServerConnection.mainConnectionSocket, command) {
+                @Override
+                public void analyze(Command cmd) {
+                    if (cmd.getKeyWord().equals(AttachmentSender.ATTACHMENT_USER)) {
+                        Post b = Post.fromJsonString(cmd.getObjectStr());
+                        onFinish(b);
+
+                    }
+                }
+            };
+            CommandsExecutor.getInstance().add(commandRequest);
+
+        }
+        public abstract void onFinish(Post post);
+    }
 }

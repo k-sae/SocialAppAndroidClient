@@ -17,18 +17,18 @@
         <Button
                 style="@style/post_buttons"
                 android:text="@string/thump_up"
-                android:id="@+id/thump_up_button" android:layout_weight="0.25"/>
-        <Button
+                android:id="@+id/thump_up_button"/>
+      <!--  <Button
                 style="@style/post_buttons"
                 android:text="@string/thump_down"
-                android:id="@+id/thump_down_button" android:layout_weight="0.25"/>
+                android:id="@+id/thump_down_button" android:layout_weight="0.25"/>-->
         <Button
                 style="@style/post_buttons"
                 android:text="@string/comment"
-                android:id="@+id/comment_button" android:layout_weight="0.25"/>
+                android:id="@+id/comment_button"/>
         <Button
                 style="@style/post_buttons"
                 android:text="@string/repost"
-                android:id="@+id/share_button" android:layout_weight="0.25"/>
+                android:id="@+id/share_button"/>
     </LinearLayout>
 </RelativeLayout>
