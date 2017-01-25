@@ -55,9 +55,9 @@ public class GeneralPacker {
                 context.startActivity(intent);
             }
         });
-        final Button button  = (Button) postViewer.findViewById(R.id.thump_up_button);
-        setButtonStyle(button, post);
-        button.setOnClickListener(new View.OnClickListener() {
+        final Button thumpUpButton = (Button) postViewer.findViewById(R.id.thump_up_button);
+        setButtonStyle(thumpUpButton, post);
+        thumpUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (isVotedUp(post)) {
@@ -68,7 +68,7 @@ public class GeneralPacker {
                             new Handler(context.getMainLooper()).post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    setButtonStyle(button, p);
+                                    setButtonStyle(thumpUpButton, p);
                                 }
                             });
                         }
@@ -82,12 +82,27 @@ public class GeneralPacker {
                             new Handler(context.getMainLooper()).post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    setButtonStyle(button, p);
+                                    setButtonStyle(thumpUpButton, p);
                                 }
                             });
                         }
                     };
                 }
+            }
+        });
+        postViewer.findViewById(R.id.share_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Post newPost = new Post();
+                newPost.setOwnerId(Long.parseLong(ClientLoggedUser.id));
+                newPost.setContent(post.getContent());
+                newPost.setPostPos(Long.parseLong(ClientLoggedUser.id));
+                new ClientLoggedUser.addUserPost(newPost) {
+                    @Override
+                    public void onFinish(String result) {
+                        //idc just ignore
+                    }
+                };
             }
         });
         return this;
