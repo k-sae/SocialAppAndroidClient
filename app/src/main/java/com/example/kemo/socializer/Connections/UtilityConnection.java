@@ -11,6 +11,11 @@ import java.net.Socket;
  */
 public class UtilityConnection extends ServerConnection {
     public UtilityConnection(String id, int port) throws ServerNotFound {
+        //NOTE: u should enter a valid server ip address
+        // servers are found at: https://drive.google.com/file/d/0B30apTkO0d5qN0o0YXFseFIyZ1k/view
+        //with source code at:
+        //                      https://github.com/kareem2048/SocialAppImagesServer
+        //                      https://github.com/kareem2048/SocialAppServer
         //enter the ip address of the remote sever
         super(NetworkConfiguration.ipAddress,port);
         sendId(id);
