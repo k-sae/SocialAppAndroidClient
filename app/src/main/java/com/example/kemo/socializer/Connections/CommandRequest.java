@@ -36,9 +36,9 @@ public abstract class CommandRequest {
                 public void run() {
                     super.run();
                     //put it later
-//                    try {
+                    try {
                         analyze(Command.fromString(s));
-//                    }catch (Exception ignored){}
+                    }catch (Exception ignored){}
                 }
             };
           thread.start();
