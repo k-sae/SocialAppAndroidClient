@@ -12,8 +12,7 @@
     <LinearLayout
            style="@style/register_page_linearLayout_vertical">
         <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+               style="@style/register_textView"
                 android:text="@string/name" android:layout_gravity="center_horizontal"/>
         <EditText
                 style="@style/TextFields"
@@ -24,8 +23,7 @@
     <LinearLayout
             style="@style/register_page_linearLayout_vertical">
         <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/register_textView"
                 android:text="@string/email"
                 android:layout_gravity="center_horizontal"/>
         <EditText
@@ -37,8 +35,7 @@
     <LinearLayout
             style="@style/register_page_linearLayout_vertical">
         <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/register_textView"
                 android:text="@string/password" android:layout_gravity="center_horizontal"/>
         <EditText
                 style="@style/TextFields"
@@ -49,8 +46,7 @@
     <LinearLayout
             style="@style/register_page_linearLayout_vertical">
         <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/register_textView"
                 android:text="@string/birth_date" android:layout_gravity="center_horizontal"/>
         <EditText
                 style="@style/TextFields"
