@@ -36,15 +36,10 @@ public abstract class ReceiveCommand extends Thread {
                     DataInputStream objectInputStream = new DataInputStream(remote.getInputStream()); //open remote stream
                     Command command = Command.fromString(objectInputStream.readUTF()); //generate command from string
                     Analyze(command); //send it to the abstract function Analyze so other team members do there work
-                }
-                catch (SocketException e)
-                {
-                    triggerListeners();
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     //Export to log
 //                    System.out.println("ReadClientData\t" +
-                    e.printStackTrace();
+                    triggerListeners();
                 }
             }
     }
