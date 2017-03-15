@@ -288,7 +288,13 @@ public class GeneralPacker {
                 new ClientLoggedUser.addUserPost(post) {
                     @Override
                     public void onFinish(String result) {
-                        stackAdapter.insertTop(post);
+                        new Handler(context.getMainLooper()).post(new Runnable() {
+                            @Override
+                            public void run() {
+                                stackAdapter.insertTop(post);
+                                ((EditText)postWriter.findViewById(R.id.editText)).getText().clear();
+                            }
+                        });
                     }
                 };
             }
